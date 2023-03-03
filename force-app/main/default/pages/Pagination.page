@@ -1,0 +1,49 @@
+<apex:page controller="CustomPaginationVFController">
+          
+    <apex:form >
+                
+        <apex:pageBlock title="VF Sample Custom Pagination Example" id="mpb">
+        
+            <!-- next, previous and page info -->
+            <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="Previous" />
+            <apex:outputLabel rendered="{!NOT(hasPrevious)}" value="Previous" />
+            
+            <apex:outputLabel value=" (page {!page} of {!totalPages}) | showing {!startIdx} to {!endIdx} of {!totalRecords} " />
+            
+            <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="Next" />
+            <apex:outputLabel rendered="{!NOT(hasNext)}" value="Next" />
+            
+            <br/>
+            
+            <!-- table of data -->
+            <apex:pageBlockTable title="Contacts" value="{!tRecords}" var="c">
+                <apex:column >
+                    <apex:facet name="header">Action</apex:facet>
+                    <apex:inputCheckbox value="{!c.IsSelected}" />
+                </apex:column>
+                <apex:column value="{!c.tContact.FirstName}"/>
+                <apex:column value="{!c.tContact.LastName}"/>
+                <apex:column value="{!c.tContact.Title}"/>
+                <apex:column value="{!c.tContact.Phone}"/>
+                <apex:column value="{!c.tContact.Email}"/>
+            </apex:pageBlockTable>
+        
+            <br/>
+            
+            <!-- next, previous and page info -->
+            <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="Previous" />
+            <apex:outputLabel rendered="{!NOT(hasPrevious)}" value="Previous" />
+            
+            <apex:outputLabel value=" (page {!page} of {!totalPages}) | showing {!startIdx} to {!endIdx} of {!totalRecords} " />
+            
+            <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="Next" />
+            <apex:outputLabel rendered="{!NOT(hasNext)}" value="Next" />
+            
+        
+        </apex:pageBlock> 
+        
+    </apex:form>
+
+
+
+</apex:page>

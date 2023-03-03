@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Learn component event from w3web.net tutorial">
+    <aura:attribute name="cmpMsg" type="String" default="Welcome w3web.net" />
+    <aura:attribute name="popFadeEvnt" type="String" default="slds- " />
+</aura:event>

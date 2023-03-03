@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" >
+    <aura:attribute name="textToBesent" type="string"/>	
+
+</aura:event>

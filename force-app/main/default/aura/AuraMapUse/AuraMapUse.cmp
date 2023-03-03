@@ -1,0 +1,13 @@
+<aura:component controller="AuraMapcontroller"  >
+
+    <aura:handler  name="init" value="{!this}" action="{!c.doinit}"/>
+
+        <aura:attribute type="map" name="Mapuse"/>  
+    
+        {!v.Mapuse.key3} 
+
+        {!v.Mapuse.key2}
+
+        {!v.Mapuse.key3}
+
+</aura:component>

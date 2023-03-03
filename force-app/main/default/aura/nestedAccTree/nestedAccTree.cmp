@@ -1,0 +1,35 @@
+<aura:component >
+    <aura:attribute name="acc" type="Account" />
+    <aura:attribute name="ext" type ="String" default="plus"/>
+    <li  id="tree0-node0" class="slds-tree__branch slds-is-open" role="treeitem" aria-level="1" aria-expanded="true">
+        <div class="slds-tree__item">
+            <aura:if isTrue="{!v.acc.Contacts[0] != null}">
+                <aura:if isTrue="{!v.ext=='plus'}">
+                    <div id="plus" ><img draggable="false" role="img" class="emoji" alt="➕" src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/2795.svg"/>
+                    </div>
+                    <aura:set attribute="else">
+                        <div id="minus"><img draggable="false" role="img" class="emoji" alt="➖" src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/2796.svg"/>
+                            
+                        </div>
+                        
+                    </aura:set>
+                    
+                </aura:if> 
+                &nbsp;
+                <aura:set attribute="else">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </aura:set>
+            </aura:if> 
+            <a id="tree0-node0-0-link"  tabindex="-1" onclick="{!c.showHidePanel}" role="presentation">{!v.acc.Name}</a>
+        </div>
+        
+        <ul aura:id="{!v.acc.Id}" id="{!v.acc.Id}" style="display:none;" class="slds-tree__group slds-nested" role="group" aria-labelledby="tree0-node0-link">
+            <aura:iteration items="{!v.acc.Contacts}" var="con">
+                <li id="tree0-node0-1" class="slds-tree__item" role="treeitem" aria-level="2" style="margin-left: 20px;">
+                    <a href="#" role="presentation" class="slds-truncate" style="color: darkgoldenrod;">{!con.Name}</a>     
+                </li>
+            </aura:iteration>
+        </ul>
+        
+    </li>
+</aura:component>

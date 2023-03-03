@@ -1,0 +1,40 @@
+<aura:component controller="ContactAura">
+    <aura:attribute name="contactRows" type="Object[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    <!--create a component attributs -->
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    <div Class="slds-p-around_small">
+        <p>
+            <b> List of Contacts </b>
+        </p>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><strong> Id </strong></th>
+                    <th> <strong>  Name </strong> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration var="cell" items="{!v.contactRows}">
+                    <tr>
+                        <td> <a href="{! '/'+cell.Id}"> {!cell.Id} </a> </td>
+                        <td> {!cell.Name}  </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

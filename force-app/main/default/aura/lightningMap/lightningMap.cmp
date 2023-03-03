@@ -1,0 +1,26 @@
+<!--
+Support API : 44.00
+Author : Piyush Soni
+Source : sfdcMonkey.com
+-->
+<aura:component controller="lightningMapController">
+    <!-- aura attributes to store Map component information -->
+    <aura:attribute name="mapMarkersData" type="Object"/>
+    <aura:attribute name="mapCenter" type="Object"/>
+    <aura:attribute name="zoomLevel" type="Integer" default="4" />
+    <aura:attribute name="markersTitle" type="String" />
+    <aura:attribute name="showFooter" type="Boolean" default="true"/>
+    
+    <!-- init handler which will call 'doInit' fucntion on component load-->
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    
+    <!-- render map component only when we have at least 1 record in list.(mapMarkersData) -->   
+    <aura:if isTrue="{!v.mapMarkersData.length > 0}" >
+        <!-- the map component -->
+        <lightning:map mapMarkers="{! v.mapMarkersData }"
+                       center="{! v.mapCenter }"
+                       zoomLevel="{! v.zoomLevel }"
+                       markersTitle="{! v.markersTitle }"
+                       showFooter="{ !v.showFooter }" />
+    </aura:if>
+</aura:component>

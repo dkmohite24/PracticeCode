@@ -1,0 +1,13 @@
+<apex:page controller="Renderhelper2">
+    <apex:form >
+        <apex:pageBlock >
+        <apex:pageBlockSection title="Select Countries">
+            <apex:inputCheckbox value="{!reUSA}" label="USA"><apex:actionSupport event="onchange" reRender="USASectionOuter" /></apex:inputCheckbox>
+        </apex:pageBlockSection>
+        
+        <apex:outputPanel id="USASectionOuter">
+            <apex:outputPanel id="USASection" rendered="{!reUSA}"> in new</apex:outputPanel>
+        </apex:outputPanel>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,145 @@
+<apex:page standardController="Contact" extensions="inlinecontroller">
+    <apex:slds />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Year Over Year" collapsible="true">          
+            </apex:pageBlockSection>
+            <table  text-align="center">
+                <thead> 
+                    <td> </td>
+                    <apex:repeat value="{!OptionsUp}" var="b">
+                        <th>
+                            {!b}
+                        </th>
+                    </apex:repeat>
+                    <td>
+                        <strong>
+                            Total
+                        </strong>
+                    </td>
+                    <tr>
+                        <td >
+                            <strong>
+                                PhysicianCharge
+                            </strong>
+                        </td> 
+                        
+                        <apex:repeat value="{!PhysicianChargeUp}" var="a">
+                            <th style="border-left: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!a}
+                            </th>
+                        </apex:repeat>
+                        <td style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                            <apex:outputText >
+                                <strong>{!PhysicianChargeupTotal}</strong>
+                            </apex:outputText>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                MRN COunt
+                            </strong>
+                        </td>
+                        <apex:repeat value="{!mrnCountUp}" var="b">
+                            <th style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!b}
+                            </th>
+                        </apex:repeat>
+                        <td style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                            <apex:outputText >
+                                <strong>
+                                    {!MrnTotalUp}</strong>
+                            </apex:outputText>
+                        </td> 
+                    </tr>
+                </thead>
+                <br/><br/><br/><br/>
+                <br/>
+                <th>
+                </th>  <th>
+                </th>  <th>
+                </th>
+                 <td style = "padding-top: 40px;" > </td>
+                <thead > 
+                    <br/><br/><br/><br/>
+                    <br/>
+                    <td > </td>
+                    
+                    <apex:repeat value="{!OptionsDown}" var="b">
+                        <th>
+                            {!b}
+                        </th>
+                        
+                    </apex:repeat>
+                    
+                    <td>
+                        <strong>
+                            Total
+                        </strong>
+                    </td> 
+                    <tr>
+                        <td >
+                            <strong>
+                                PhysicianCharge 
+                            </strong>
+                        </td> 
+                        <apex:repeat value="{!PhysicianChargeDown}" var="a">
+                            <th style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!a}
+                            </th>
+                        </apex:repeat>
+                        <td style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                            <apex:outputText >
+                                <strong>{!PhysicianChargeDownTotal}</strong>
+                            </apex:outputText>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                MRN COunt</strong>
+                        </td>
+                        <apex:repeat value="{!mrnCountDown}" var="b">
+                            <th style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!b}
+                            </th>
+                        </apex:repeat>
+                        <td style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                            <apex:outputText >
+                                <strong> {!MRNTotalDown}</strong>
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </thead>
+                
+                <thead > 
+                    <br/><br/><br/><br/>
+                    <br/>
+                    <td style = "padding-top:40px;   padding-bottom: 5px;" > </td>
+                    
+                    <tr>
+                        <td>
+                            <strong>PhysicianCharge Varience
+                            </strong>
+                        </td> 
+                        
+                        <apex:repeat value="{!PhysicianChargeMinus}" var="a">
+                            <th style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!a}
+                            </th>
+                        </apex:repeat>
+                    </tr>
+                    <tr >
+                        <td><strong>MRN Varience</strong></td>
+                        <apex:repeat value="{!mrnCountMinus}" var="b">
+                            <th style="border-left: thin solid;border-right: thin solid; border-top: thin solid; border-bottom: thin solid;">
+                                {!b}
+                            </th>
+                        </apex:repeat>
+                    </tr>
+                </thead>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

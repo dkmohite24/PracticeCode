@@ -1,0 +1,15 @@
+<apex:page controller="testactionsupportcontroller">
+  <apex:form >
+    <apex:pageBlock >
+       <apex:commandButton value="Process"/>
+       <apex:inputCheckbox value="{!output1}" onchange="">Export</apex:inputCheckbox>
+       <apex:inputCheckbox value="{!output2}">Import</apex:inputCheckbox>
+      <apex:outputPanel id="out1" rendered="{!output1}">
+        <p>hello this is sfdc</p>
+      </apex:outputPanel>
+      <apex:outputPanel id="out2" rendered="{!output2}">
+        <p>HEllo this is nitesh</p>
+      </apex:outputPanel>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

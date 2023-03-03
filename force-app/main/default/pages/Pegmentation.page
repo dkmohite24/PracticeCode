@@ -1,0 +1,30 @@
+<apex:page controller="Pagination_minnew">
+    <apex:form >
+        <apex:pageBlock id="pb">
+            <apex:pageBlockTable value="{!Contacts}" var="a">
+                
+                <apex:column value="{!a.Name}"/>
+                <apex:column value="{!a.CreatedById}"/>
+                <apex:column value="{!a.Owner.name}"/>
+                <apex:column value="{!a.Createddate}"/>
+                <apex:column value="{!a.Email}"/>
+                
+            </apex:pageBlockTable>
+            <apex.pageblockbutton>
+            </apex.pageblockbutton>
+            <apex:panelGrid columns="7">
+                
+                <apex:commandButton reRender="pb" value="previous" action="{!setCon.previous}" disabled="{!!setCon.hasPrevious}" title="Previous Page"/>
+                <apex:commandButton reRender="pb" value="Next" action="{!setCon.next}" disabled="{!!setCon.hasNext}" title="Next Page"/>
+                <apex:outputText >{!(setCon.pageNumber * size)+1-size}-{!IF((setCon.pageNumber * size)>noOfRecords, noOfRecords,(setCon.pageNumber * size))} of {!noOfRecords}</apex:outputText>
+                <apex:actionFunction name="show" action="{!refresh}" reRender="pb" />
+                
+                <apex:selectList value="{!size}"  multiselect="false" size="1" onchange="show()">
+                    <apex:selectOptions value="{!items}"/>
+                </apex:selectList>
+                
+            </apex:panelGrid>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

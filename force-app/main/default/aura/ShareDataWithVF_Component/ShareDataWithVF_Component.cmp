@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="message" type="String"/>
+    <aura:attribute name="visualforceDomain" type="String"
+                    default="dkmohite24-dev-ed--c.ap16.visual.force.com"/>
+    						
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card title="Post Message Demo">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem padding="around-large">
+                <lightning:input type="text" label="Message:" value="{!v.message}" class="lightning-input"
+                                 variant="label-hidden" placeholder="Type your messsage here..."/>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-large">
+                <lightning:button label="Send to VF" onclick="{!c.sendToVF}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" padding="around-large">
+                <span id="allMessages"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+        
+        <lightning:layout>
+            <lightning:layoutItem size="12">
+                <!-- The Visualforce page to send data to -->
+		<lightning:card title="I am a Visualforce Page inside Lightning Component" class="vf-card">
+                    <iframe aura:id="vfFrame"  frameborder="0" width="100%" height="200" 
+                            src="{!'https://' + v.visualforceDomain + '/apex/VfPageNLightningCommunication'}"/>
+                </lightning:card>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+    
+    
+</aura:component>

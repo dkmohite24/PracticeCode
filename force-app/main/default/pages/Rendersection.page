@@ -1,0 +1,56 @@
+<apex:page showHeader="false" sidebar="false" controller="LeaseRenewalFormHelper">
+    <style>
+        .logo {
+        float: right;
+        width: 60px;
+        margin: -65px 20px 0 0;
+        }
+        .rules {
+        color: Black;
+        font-size: 18px;
+        font-family: Courier;      
+        margin: 10px 0 10px 30px;
+        float: left;
+        width: 100%;
+        }
+    </style>
+    
+    <apex:form >
+        <apex:pageBlock title="Lease Renewal Form" mode="edit">
+            
+            <tr>
+                <td>
+                    
+                    <apex:inputCheckbox value="{!renewLease}">
+                        <apex:actionSupport event="onchange" reRender="reNewSection" />
+                    </apex:inputCheckbox>
+                    
+                </td>
+                <td>Do you want to renew the lease?
+                </td>
+              
+            </tr>
+            <apex:outputPanel id="reNewSection">
+                <apex:outputPanel id="showSection" rendered="{!renewLease}">
+                    
+                    
+                    <apex:pageBlockSection >
+                        <apex:outputText styleClass="Rules" id="agreement">
+                            We Recommend raising the rent by 5%!!!
+                            <tr>
+                                <td>
+                                    <apex:inputCheckbox value="{!agreeToRaise}" label="o you agree to raise the rent by 5%?" /> Do you agree to raise the rent by 5%?
+                                </td>
+                            </tr>
+                            <!--<apex:inputCheckbox value="{!agreeToRaise}" label="Do you agree to raise the rent by 5%?"/>-->
+                        </apex:outputText>
+                        <apex:commandButton value="Submit"/>
+                    </apex:pageBlockSection>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+    
+</apex:page>

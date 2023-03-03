@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <div class="slds-card__body slds-card__body_inner">
+        <lightning:input name="input1" label="FirstName"  required="true"/>
+        <lightning:input name="input2" label="LastName" required="true"/>
+        <lightning:input type="email" name="email3" placeholder="youraddress@company.com" label="Email Address"/>
+        <lightning:input type="tel" label="phone field" name="phone2"/>
+        <lightning:textarea name="input3" label="Textarea field with a placeholder" placeholder="type here..."/>
+        <lightning:input type="date" name="input1" label="Enter a date" />
+        <div class="slds-p-around_small">
+        <lightning:button variant="brand" label="Submit" onclick="{! c.myAction }" />
+        </div>
+    </div>
+</aura:component>

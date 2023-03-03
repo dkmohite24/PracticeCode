@@ -1,0 +1,73 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg']" />
+    <aura:attribute name="multiple" type="Boolean" default="false" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    <aura:attribute name="showCarousel" type="Boolean" default="true" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="FirstName" type="String" />
+    <aura:attribute name="LastName" type="String" />
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <aura:attribute name="Email" type = "String" />
+    <aura:attribute name="lstimg" type="Object[]"/>
+    <article class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-p-around_xx-large">
+                <div class="row">
+                    <h2 class="header">Fill Information</h2>
+                    <lightning:input name="input1" label="FirstName" value="{!v.FirstName}" />
+                    <lightning:input name="input2" label="LastName" value="{!v.LastName}"/>
+                    
+                    <lightning:input type="email" name="email3" placeholder="youraddress@company.com" label="Email Address"  value="{!v.Email}" />
+                    <!-- <lightning:fileUpload label="Attach receipt"
+                                          name="fileUploader"
+                                          multiple="true"
+                                          accept="{!v.filetype}"
+                                          recordId="{!v.recordId}"
+                                          onuploadfinished="{!c.handleUploadFinished}" /> -->
+                    <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="fileUploader" label="Upload Attachment" multiple="false"/>
+                    <div class="slds-text-body_small slds-text-color_error">
+                        {!v.fileName} 
+                    </div>
+                    <button class="slds-button slds-button_brand" onclick="{!c.dosave}">Upload Attachment</button>
+                </div> 
+            </div>
+        </div>
+        <footer class="slds-card__footer">
+            
+        </footer>
+    </article>
+    <aura:if isTrue="{! v.showCarousel }">
+        
+        
+        <div class="slds-p-around_xx-large" >
+            
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false">
+                 <aura:iteration items="{!v.lstimg}" var="img">
+                
+                <lightning:carouselImage
+                                         src = "{!img.image}" 
+                                         header = "First Card"
+                                         description = "First card description."
+                                         alternativeText = "First card accessible description."
+                                         href = "https://www.salesforce.com">
+                    
+                </lightning:carouselImage>
+                 </aura:iteration>
+                <lightning:carouselImage
+                                         src = "https://dkmohite24-dev-ed--c.ap16.visual.force.com/resource/1639648923000/Spiderman?"
+                                         header = "Second Card"
+                                         description = "Second card description."
+                                         alternativeText = "Second card accessible description."
+                                         href = "https://www.salesforce.com">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                                         src = "https://dkmohite24-dev-ed--c.ap16.visual.force.com/resource/1639648996000/Blackspider?"
+                                         header = "Third Card"
+                                         description = "Third card description."
+                                         alternativeText = "Third card accessible description."
+                                         href = "https://www.salesforce.com">
+                </lightning:carouselImage>
+            </lightning:carousel>
+        </div>
+    </aura:if> 
+</aura:component>

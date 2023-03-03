@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Search Account" icon-name="utility:user">
+        <div class="slds-var-m-around_x-large">
+            <lightning-input onchange={handleonchange} label="Search Account" value={searchKey} ></lightning-input>
+
+        </div>
+        <div class="slds-var-m-around_x-large">
+            <lightning-button onclick={buttonClick} label="Get Account"></lightning-button>
+
+        </div>
+        <template if:true={accounts}>
+            <div class="slds-var-m-around_x-large">
+                <template for:each={accounts} for:item="acc">
+                    <lightning-layout key={acc.Id} class="slds-var-m-vertical_x-small">
+                        <lightning-layout-item flexibility="grow">
+                            {acc.Name}
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

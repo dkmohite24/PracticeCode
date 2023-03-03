@@ -1,0 +1,29 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="LeadController">
+    <style>
+        
+        .buttonStyle { width:100%;  text-align:center; padding-top:4px; }
+        .buttonsStyle { width:100%;  text-align:right; padding-top:4px; }
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="Bottom" styleClass="buttonStyle ">
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            Fill in all the information you have.<br/>
+            The more details you can give us, the easier it will be to determine if repair is possible.<br/>
+            <apex:outputText style="font-style:italic" value="If you don't know some details, leave the fields blank. For questions regarding the inspection or repair of specific devices,
+                                                              the detailed information will help us to determine your problem and give you the quickest possible response.">
+            </apex:outputText>
+            <apex:pageBlockSection columns="1" >
+                <div Class="buttonsStyle ">
+                    
+                    
+                    <apex:inputField value="{!c.FirstName}"/>
+                    <apex:inputField value="{!c.LastName}"/>
+                    <apex:inputField value="{!c.Email}"/>
+                    <apex:inputField value="{!c.Company}"/>
+                </div>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

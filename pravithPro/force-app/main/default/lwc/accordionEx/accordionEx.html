@@ -1,0 +1,17 @@
+<template>
+    <h6>Accoridan Exmape v1</h6>
+    <lightning-accordion allow-multiple-sections-open={multiple}>
+        <template if:true={accounts}>
+            <template for:each={accounts} for:item="acc">
+                <lightning-accordion-section name={acc.Name} label={acc.Name} key={acc.Id}>
+                    <template for:each={acc.Contacts} for:item="con">
+                        <lightning-accordion-section name={con.Name} label={con.Name} key={con.Id}>
+                            {con.Name}
+                        </lightning-accordion-section>
+                    </template>
+
+                </lightning-accordion-section>
+            </template>
+        </template>
+    </lightning-accordion>
+</template>

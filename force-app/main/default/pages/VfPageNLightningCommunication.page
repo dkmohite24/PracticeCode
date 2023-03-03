@@ -1,0 +1,69 @@
+<apex:page lightningStylesheets="true">
+    <html>
+        <head>
+            <style>
+            	.vf-header {
+                	    padding-left: 20px;
+                        background-color: lightgrey;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        font-weight: bold;
+                }
+                .vf-input-element {
+	                margin-left: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <apex:form >
+                <p><div class="vf-header">Send Message To Lightning</div></p>
+                <p>
+                    <input class="vf-input-element" type="text" label="My Message" id="visualforceMessage"/>
+                    <input class="vf-input-element" type="submit" value="Send Message To Lightning" 
+                           name="Send Message To Lightning" id="sendButton" />
+                </p>
+                
+                <p><div class="vf-header">Read All Messages From Lightning Component</div></p>
+                <p style="padding-left:20px"><span id="allMessages"/></p>
+            </apex:form>
+
+            <script>
+		/**
+                 * Your org's my domain url
+                 * Please include port as well if any
+                 **/
+                var lightningDomain = "https://dkmohite24-dev-ed.lightning.force.com";
+    
+		/**
+		* Adding a new event listner on window object
+		* to listen for message event
+		**/
+		window.addEventListener("message", function(event) {
+			//Check if origin is not your org's my domain url, in this case, simply return out of function
+			if (lightningDomain.indexOf(event.origin) == -1) {
+			    // Reject message if origin domain is not as you are expecting
+			    console.error('Discarding Message | Message received from invalid domain: ',event.origin);
+			    return;
+			}
+			// Handle the message event here
+			console.log('Visualforce Gets: ', event.data);
+			document.querySelector('#allMessages').innerHTML += `<p>${event.data}</p>`;
+		}, false);
+		    
+		/**
+		* Adding event listener on send button 
+		* to send message to lightning component
+		**/
+		document.querySelector('#sendButton').addEventListener("click",function(event){
+			console.log('Visualforce Sends: ', document.querySelector('#visualforceMessage').value);
+			//Posting message to parent window object (in our case its lightning component's window object)
+			parent.postMessage(document.querySelector('#visualforceMessage').value, lightningDomain);
+			//Resetting input element to blank again
+			document.querySelector('#visualforceMessage').value = "";
+			event.preventDefault();
+		}); 
+
+            </script>
+        </body>
+    </html>
+</apex:page>

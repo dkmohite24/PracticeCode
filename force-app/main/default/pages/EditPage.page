@@ -1,0 +1,52 @@
+<apex:page controller="AccountTest">
+    <apex:form >
+        <apex:pageBlock title="Account Detail">
+            <apex:pageBlockButtons >                      
+                <apex:commandButton value="Save" action="{!saveAccount}"/>               
+                <apex:commandButton value="Edit" action="{!edittheSection}"/>                 
+            </apex:pageBlockButtons>           
+            
+            <apex:pageBlockSection title="Account Details" rendered="{!!editSection}">
+                <apex:outputField value="{! Acc.Name }"/>
+                <apex:outputField value="{! Acc.Phone }"/>
+                <apex:outputField value="{! Acc.Industry }"/>
+                <apex:outputField value="{! Acc.AnnualRevenue }"/>
+                <apex:outputField value="{! Acc.CreatedBy.name }"/>
+                <apex:outputField value="{! Acc.CreatedById }"/>
+                <apex:outputField value="{! Acc.CreatedDate }"/>
+                <apex:outputField value="{! Acc.fax }"/>        
+                <apex:outputField value="{! Acc.Email__c }"/>
+                <apex:outputField value="{! Acc.OwnerId }"/>          
+                <apex:outputField value="{! Acc.billingstreet }"/>
+                <apex:outputField value="{! Acc.billingCity }"/>
+                <apex:outputField value="{! Acc.billingCountry }"/>
+                <apex:outputField value="{! Acc.BillingState }"/>
+                <apex:outputField value="{! Acc.billingPostalCode }"/>
+                <apex:outputField value="{! Acc.BillingLatitude }"/>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection rendered="{!editSection}" title="Edit Section">
+                <apex:inputField value="{!Acc.Name}"/>
+                <apex:inputField value="{! Acc.Name }"/>
+                <apex:inputField value="{! Acc.Phone }"/>
+                <apex:inputField value="{! Acc.Industry }"/>
+                <apex:inputField value="{! Acc.AnnualRevenue }"/>
+                <apex:inputField value="{! Acc.CreatedBy.name }"/>
+                <apex:inputField value="{! Acc.CreatedById }"/>
+                <apex:inputField value="{! Acc.CreatedDate }"/>
+                <apex:inputField value="{! Acc.fax }"/>        
+                <apex:inputField value="{! Acc.Email__c }"/>
+                <apex:inputField value="{! Acc.OwnerId }"/>          
+                <apex:inputField value="{! Acc.billingstreet }"/>
+                <apex:inputField value="{! Acc.billingCity }"/>
+                <apex:inputField value="{! Acc.billingCountry }"/>
+                <apex:inputField value="{! Acc.BillingState }"/>
+                <apex:inputField value="{! Acc.billingPostalCode }"/>
+                <apex:inputField value="{! Acc.BillingLatitude }"/>
+                <apex:inputField value="{!Acc.site}"/>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

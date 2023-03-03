@@ -1,0 +1,86 @@
+<aura:component controller="CustomFetchAllObj" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+                access="global" >
+    <!-- aura handler with waiting and donewaiting events--> 
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>    
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" />
+    <aura:attribute name="ObjList" type="List" />
+    <aura:attribute name="PageNumber" type="Integer" default="1"/>
+    <aura:attribute name="totalPages" type="integer" default="1"/>
+    <aura:attribute name="totalRecords" type="integer" default="0"/>
+    <aura:attribute name="PageSize" type="String" default="10"/>
+    <aura:attribute name="FirstId" type="String" />
+    <aura:attribute name="LastId" type="String" />
+    <!--create a component attributs -->
+    <aura:attribute name="Spinner" type="boolean" default="false"/>    
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.Doinit}" />
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end--> 
+    <div class="slds-align_absolute-center">
+        <lightning:select name="Objects" label="Select object:" aura:id="onjId" onchange="{!c.getData}" value="{!v.selectedValue}">
+            <aura:iteration items="{!v.options}" var="objectname">
+                <option value="{!objectname}" text="{!objectname}" />  
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <div Class="slds-p-around_small">
+        <strong> {!v.selectedValue} </strong>
+        
+    </div>
+    <div class="slds-p-around_large">
+        <div class="slds-float_right">
+            <lightning:select aura:id="pageSize" name="selectPageSize" value="{!v.PageSize}" label="Select number of records" onchange="{! c.onSelectChange }" required="true">
+                <option value="">Display Records Per Page:</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                
+            </lightning:select>
+            
+            <br/>
+            
+        </div>
+        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal"><!--Table must be responsive-->
+            <thead>
+                <tr class="slds-text-heading--label ">                    
+                    <th class="" scope="col">Record Name</th>                    
+                    <th class="slds-is-sortable" scope="col">Record Id</th>
+                    <th class="slds-is-sortable" scope="col">CreatedBy</th>
+                    <th class="slds-is-sortable" scope="col">CreatedDate</th>          
+                </tr>  
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.ObjList}" var="Obj">
+                    <tr class="slds-hint-parent">                        
+                        <td data-label="Record Name" >
+                            <a href="{! '#/sObject/' + Obj.Id + '/view'}">{!Obj.Name}</a>
+                        </td>
+                        <td data-label="Record Id" >{!Obj.Id}</td>
+                        <td data-label="CreatedBy" >{!Obj.CreatedBy.Name}</td>
+                        <td data-label="CreatedDate">{!Obj.CreatedDate}</td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        {!v.PageNumber} OF {!v.totalPages}
+        <div class="slds-float_right">
+            <lightning:button disabled="{!v.PageNumber == 1}" variant="brand" aura:id="firstPage" label="First" onclick="{!c.handleFirst}" />
+            <lightning:button disabled="{!v.PageNumber == 1}" variant="brand" aura:id="prevPage" label="Prev" onclick="{!c.handlePrev}" />            
+            <lightning:button disabled="{!v.PageNumber == v.totalPages}" aura:id="nextPage" variant="brand" label="Next" onclick="{!c.handleNext}"/>
+            <lightning:button disabled="{!v.PageNumber == v.totalPages}" variant="brand" aura:id="lastPage" label="Last" onclick="{!c.handleLast}" />
+        </div>
+    </div>
+</aura:component>

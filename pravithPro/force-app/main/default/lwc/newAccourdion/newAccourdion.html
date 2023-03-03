@@ -1,0 +1,37 @@
+<template>
+    <div style="background-color: white">
+        <h2>Accoridan exampless</h2>
+    </div>  
+    <lightning-accordion allow-multiple-sections-open={multiple}>
+        <template if:true={accounts}>
+            <div style="background-color: white"> 
+                    
+            
+                <template for:each={accounts} for:item="acc">
+                
+                    <lightning-accordion-section name={acc.Name} label={acc.Name} key={acc.Id}>
+                        
+                        <template for:each={acc.Contacts} for:item="con">
+                            <lightning-accordion-section name={con.Name} label={con.Name} key={con.Id}>
+                                <lightning-card
+                                variant="narrow"
+                                icon-name="standard:opportunity">
+                            <h1 slot="title"> Contact Name:-{con.Name} </h1>
+                            <p class="slds-p-horizontal_small">Contact Id :- {con.Id}<br/>Account Name :- {acc.Name}<br/>
+                             {acc.Email}  
+                            </p>
+                            <div slot="actions">
+                                <lightning-button label="New" slot="actions"></lightning-button>
+                            </div>
+                        </lightning-card>
+                            Contact Id:-{con.Id} 
+                            <br/>
+                            {acc.Name} {con.Email}
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion-section>
+                </template>
+            </div>
+        </template>
+    </lightning-accordion>
+</template>

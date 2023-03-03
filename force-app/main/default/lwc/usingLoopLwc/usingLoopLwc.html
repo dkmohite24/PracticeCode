@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Using for loop in LWC " >
+        <div style="padding: 10px;">
+             <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" border="5">
+                 <thead >
+                    <tr class="slds-line-hight_reset">
+                    <td>
+                         Student name 
+                     </td>
+        <td>
+                         Class
+                     </td>
+                     <td>
+                         Fee
+                     </td>
+                    </tr>
+                 </thead>
+                 <template for:each={Students} for:item="stu">
+                    <tr key={stu.Id}  class="slds-hint-parent">
+                        <td>{stu.Name}</td>
+                        <td>{stu.Class}</td>
+                        <td>{stu.Fee}</td>
+                    </tr>
+
+
+                 </template>
+             </table>
+        </div>
+    </lightning-card>
+    
+</template>

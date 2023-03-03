@@ -1,0 +1,24 @@
+<apex:page standardController="Contract" >
+ 
+
+    <script type="text/javascript"> 
+    var a = '{!Contract.status}'; 
+    if(a == 'In Approval Process')
+    { window.alert("Static Content"); }
+    </script>
+
+</apex:page>
+
+
+
+<!--
+    OR(
+ISBLANK( BillingCity ),
+ISBLANK( BillingCountry ),
+ISBLANK( BillingState ),
+ISBLANK( BillingStreet ),
+)rendered="{!Contract.status == 'In Approval Process'}"
+<script type="text/javascript">
+   window.alert("Your message herex`"); 
+ </script>
+-->

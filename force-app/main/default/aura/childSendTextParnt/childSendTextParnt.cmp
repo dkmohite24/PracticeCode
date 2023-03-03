@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="inputValue" type="String" />
+    <aura:registerEvent name="cmdEvent" type="c:childSendTextEvent"/>
+    <div class="slds-p-around_x-large">
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <lightning:input type="Text"  label="Text to send parent component " value="{!v.inputValue}" />
+                <lightning:button label="Send" variant="brand" onclick="{!c.sendtoParent}"/>
+            </div>
+            {!v.inputValue}
+        </div>
+    </div> 
+</aura:component>

@@ -1,0 +1,53 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg']" />
+    <lightning:fileUpload label="Attach receipt"
+                          name="fileUploader"
+                          multiple="false"
+                          accept="{!v.filetype}"
+                          recordId="{!v.CaseObj.Id}"
+                          onuploadfinished="{!c.handleUploadFinished}"
+                          />
+    <div class="slds-border_right slds-border_left">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Title">Title</div>
+                    </th>
+                </tr> 
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.listContentDoc}" var="CD">
+                    <tr>
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!CD.Title}">
+                                <!--store contentDocument Id in data-Id attribute-->
+                                <a onclick="{!c.getSelectedFile}" data-Id="{!CD.Id}">{!CD.Title}</a>
+                            </div>
+                        </th>
+                    </tr> 
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <!--###### FILE PREVIEW MODAL BOX START ######-->
+    <aura:if isTrue="{!v.hasModalOpen}">
+        <section onclick="{!c.closeModel}"
+                 role="dialog"
+                 aria-modal="true"
+                 class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium slds-text-align_center" style="background: transparent;">
+                    <div style="width: 50%; margin: 0 auto; text-align: left">
+                        <!--<lightning:fileCard> to preview file using content document Id -->
+                        <lightning:fileCard fileId="{!v.selectedDocumentId}"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!--###### FILE PREVIEW MODAL BOX END ######-->
+</aura:component>

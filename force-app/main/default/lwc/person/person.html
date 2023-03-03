@@ -1,0 +1,28 @@
+<template>
+    <div style="width: 640px;">
+        <lightning-card title="Person Details">
+            <p class="slds-p-around_medium">
+                {user.firstName} {user.lastName}
+                <br />
+                <template if:true={showDetails}>
+                  {details}  
+                 </template>
+            </p>
+            <lightning-button onclick={updateUser} slot="actions" label="Update User"></lightning-button>
+            <br/>
+
+         
+            <lightning-button slot="actions" label={actionButtonLabel} onclick={toggleDetails}>
+            </lightning-button>
+            <lightning-input class="slds-var-p-around_x-large" onchange={actionChange} label="Enter New Age" value={newAge}></lightning-input>
+            
+            <br/>
+            <br/>
+            <br />
+            Animal Name:- {name}
+            <br />
+            Animal Age:- {age} years
+            <br />
+        </lightning-card>
+    </div>
+</template>

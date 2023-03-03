@@ -1,0 +1,90 @@
+<template>
+    <lightning-card title="Card component" icon-name="custom:custom4">
+        <div class="slds-p-horizontal_medium">
+            <lightning-combobox name="types" label="Type" value={value} options={options}  onchange={handleTypeChange}> </lightning-combobox> 
+           
+        </div>
+        <lightning-layout vertical-align="centre">
+            <template if:true= {boolVariable} >
+                <div class="slds-p-horizontal_medium">
+                    <lightning-input label="Name" value={name} onchange={nameChange}></lightning-input>
+                    </div>
+            </template>        
+                    <div class="slds-p-horizontal_medium">
+                        <lightning-input label="Name" value={name} onchange={nameChange}></lightning-input>
+                    </div> 
+                        <div class="slds-p-horizontal_medium">
+                            <lightning-input label="Name" value={name} onchange={nameChange}></lightning-input>
+
+                        </div>
+                 
+        </lightning-layout>
+            
+        <lightning-layout vertical-align="centre">
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={name}></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={title}></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={phoneNo}></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={userId}></lightning-formatted-text>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout veartical-align ="centre">
+            <lightning-layout-item padding=" around-small">
+                <lightning-button label="call Js" variant="brand" onclick={jshandle} >
+
+                </lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <div class="slds-m-around_medium">
+                    Noice1
+                    <template if:true={boolVariable}  >
+                        <lightning-datatable
+                            key-field="Id"
+                            data={accountList}
+                            columns={columns}>
+                        </lightning-datatable>
+                    </template>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout vertical-align="centre">
+            <lightning-layout-item padding="around-small">
+                {greetings}
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                {message}
+            </lightning-layout-item>    
+            <lightning-layout-item padding="around-small">
+                <lightning-input type="checkbox" label="Show details" onchange={handleChange}></lightning-input>
+
+                <template if:true= {boolVariable} > 
+                    <lightning-input label="Name" value={name} onchange={nameChange}></lightning-input>
+                    <span>
+                        boolVariable is {boolVariable}
+                         got changed data4
+                    </span>
+                    
+                    <div class="slds-m-around_medium">
+                        <template if:true={areDetailsVisible}>
+                            <div class="slds-m-vertical_medium">
+                                These are the details ! areDetailsVisible {areDetailsVisible}
+                            </div>
+                        </template>
+                    </div>
+                    
+                        <template for:each={contacts} for:item="con" for:index="index">
+                            <p key={con.id} >{index}</p>
+                            {con.Name}
+                            {con.id}
+                        </template>
+                 </template>
+            </lightning-layout-item> 
+        </lightning-layout>
+    </lightning-card>
+</template>

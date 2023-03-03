@@ -1,0 +1,45 @@
+<apex:page controller="TestPageController" >
+    <apex:form >
+        <apex:pageBlock title="Account Detail">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!saveAccount}"/>
+                <apex:commandButton value="Edit" action="{!editAccount}"/>
+            </apex:pageBlockButtons>
+            
+            
+            <apex:pageBlockSection rendered="{!editsection}" >
+                <apex:inputField value="{!acc.name}"/>
+                <apex:inputField value="{!acc.billingcity}"/>
+                <apex:inputField value="{!acc.billingstreet}"/>
+                <apex:inputField value="{!acc.billingstate}"/>
+                <apex:inputField value="{!acc.billingcountry}"/>
+                <apex:inputField value="{!acc.billingpostalcode}"/>
+                <apex:inputField value="{!acc.phone}"/>
+                <apex:inputField value="{!acc.shippingcity}"/>
+                <apex:inputField value="{!acc.shippingstate}"/>
+                <apex:inputField value="{!acc.shippingcountry}"/>
+                <apex:inputField value="{!acc.shippingstreet}"/>
+                
+            </apex:pageBlockSection>    
+            
+            
+            
+            <apex:pageBlockSection rendered="{!!editsection}">
+                <apex:outputField value="{!acc.name}"/>
+                <apex:outputField value="{!acc.billingcity}"/>
+                <apex:outputField value="{!acc.billingstreet}"/>
+                <apex:outputField value="{!acc.billingstate}"/>
+                <apex:outputField value="{!acc.billingcountry}"/>
+                <apex:outputField value="{!acc.billingpostalcode}"/>
+                <apex:outputfield value="{!acc.phone}"/>
+                <apex:outputField value="{!acc.shippingcity}"/>
+                <apex:outputField value="{!acc.shippingstate}"/>
+                <apex:outputField value="{!acc.shippingcountry}"/>
+                <apex:outputField value="{!acc.shippingstreet}"/>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

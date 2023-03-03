@@ -1,0 +1,31 @@
+<template>
+<lightning-card title="Js  BInding" icon-name="utility:user">
+    <div class="slds-var-medium_around" >
+        <lightning-input name="firstName" label="name" onchange={handleChange}>
+        </lightning-input>
+        <lightning-input type="tel" name="mobiNumber" label="Mobile Number" onchange={handleChange}>
+        </lightning-input>
+        <lightning-input type="email" name="emailId" label="Email Address" onchange={handleChange}>
+        </lightning-input>
+            </div>
+            <div style="padding: 10px;">
+                <table border="5">
+                    <tr>
+                        <td>Full Name : </td>
+                        <td>{firstName}</td>
+                    </tr>
+                    <tr>
+                        <td>Email : </td>
+                        <td>{emailId}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone : </td>
+                        <td>{mobiNumber}</td>
+                    </tr>       
+                </table>
+
+            </div>
+
+</lightning-card>
+
+</template>

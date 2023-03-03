@@ -1,0 +1,19 @@
+<aura:component controller="Calculator" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name = "InputNo1" type = "Integer" access = "public"/>
+    <aura:attribute name = "InputNo2" type = "Integer" access = "public"/>
+    <aura:attribute name = "Output" type = "Integer" access = "public"/>
+    
+    <div class = "slds-p-around_small">
+        <lightning:input type="number"  label="Enter the number 1" value="{!v.InputNo1}" />
+        <lightning:input type="number"  label="Enter the number 2" value="{!v.InputNo2}" />
+        <br/>
+        <lightning:button iconName="utility:add" onclick="{! c.DoAdd }"  variant="brand" />
+        <lightning:button iconName="utility:dash" onclick="{! c.DoSub }"  variant="brand" />
+        <lightning:button iconName="utility:close" onclick="{! c.DoMult }"  variant="brand" />
+        <lightning:button  label="/" onclick="{! c.DoDiv }"  variant="brand" />
+        
+         
+        <br/>
+        Answer is {!v.Output}
+    </div>
+</aura:component>

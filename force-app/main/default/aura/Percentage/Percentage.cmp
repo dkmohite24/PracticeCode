@@ -1,0 +1,55 @@
+<aura:component  controller="ContactListController" implements="Flexipage:availableForRecordHome,Force:hasRecordId" Access="Global" >
+    <!-- <aura:attribute name = "WholeNumber" type = "Integer" access = "public"/>
+    <aura:attribute name = "Percentage" type = "Integer" access = "public"/>
+    <aura:attribute name = "CreateMap" type = "list" /> -->
+    <aura:attribute name="contactList" type="Contact[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>    
+    
+    {!v.recordId}
+    <!--
+
+
+        -->
+    <!-- <div class = "slds-p-around_small">
+        <lightning:input type="number" name="NO1" label="enter the number" value="{!v.WholeNumber}" />
+        <lightning:input type="number" name="NO2" label="enter percentage" value="{!v.Percentage}" 
+                         formatter = "percent-fixed"/>
+        <br/>
+        {!v.Percentage} parcent of {!v.WholeNumber}
+        <br/>
+        is
+        <br/>
+        {!div(mult(v.WholeNumber,v.Percentage),100)}
+        <br/>
+        <br/>
+       
+    
+        <aura:iteration items="{!v.CreateMap}" var="map">
+            <br/>
+            key :- {!map.key} And Value:- {!map.value}
+            <br/>
+        </aura:iteration>
+        <br/>
+        <lightning:button variant="brand" label="Createmap"  onclick="{! c.DoCreatemap }" />
+        <br/>
+        <br/>
+--><div class = "slds-p-around_small">
+    <c:InsertContact accountId = "{!v.recordId}" />
+    <div class="slds-grid slds-wrap">
+        <aura:iteration items="{!v.contactList}" var="con">
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning:card footer="{!con.Email}" title="{!con.Name}" iconName = "standard:contact">
+                    <aura:set attribute= "actions">
+                        <lightning:button name= "{!con.Id}" label= "view Details" variant = "brand"
+                                          onclick="{! c.Doredirect }"/>
+                    </aura:set>
+                    <p class="slds-p-horizontal_small">
+                        {!con.Phone}
+                    </p>
+                </lightning:card>
+            </div>
+        </aura:iteration>
+    </div>
+    </div>
+    
+</aura:component>

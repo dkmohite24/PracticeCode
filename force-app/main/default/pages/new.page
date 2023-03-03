@@ -1,0 +1,36 @@
+<apex:page controller="AccContact">
+  <apex:form >
+  <apex:pageBlock >
+  <apex:pageBlockTable value="{!acclst}" var="a">
+  
+ <apex:column headerValue="Name">
+  <apex:commandLink action="{!selacc}">
+  <apex:param name="conlst" value="{!a.id}"/>
+  <apex:outputText value="{!a.name}"/>
+  </apex:commandlink>
+  </apex:column>
+  <!--accounts-->
+   </apex:pageBlockTable>
+    <apex:pageBlockTable value="{!accconts1}" var="a">
+    <apex:column headerValue="AccountName" value="{!a.Name}"/>
+    <!--contacts-->
+    <apex:column headerValue="list contacts">
+   <apex:pageBlockTable value="{!a.contacts}" var="c">
+  <apex:column headerValue="ContactName">
+  <apex:outputText value="{!c.lastname}"></apex:outputText>
+  </apex:column>
+  <!--opportunities-->
+  <apex:column headerValue="Opportunity list">
+  <apex:pageBlockTable value="{!a.opportunities}" var="p">
+  <apex:column headerValue="Opportunity Name">
+  <apex:outputText value="{!p.name}">
+  </apex:outputText>
+  </apex:column>
+  </apex:pageBlockTable><!-- End opportunity-->
+  </apex:column>
+ </apex:pageBlockTable><!-- End contact-->
+ </apex:column>
+ </apex:pageBlockTable><!--end account-->
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

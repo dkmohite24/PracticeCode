@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="lstimg" type="Object[]"/>
+    <aura:handler name="init" action="{!c.listAction}" value="{!this}"/>
+    <div class="slds-align_absolute-center" style="height: 5rem;">
+        <div class="slds-size_1-of-2">
+            <div class="slds-box slds-align_absolute-center" style="height: 5rem; position: absolute; width: 300px; height: 200px; z-index: 15; top: 50%; left: 50%; margin: -100px 0 0 -150px; border-color: rgb(255, 255, 255);" >
+                <lightning:carousel disableAutoScroll="false">
+                    <aura:iteration items="{!v.lstimg}" var="img">
+                        <lightning:carouselImage width="10px" height="10px" src = "{!img.image}" header = "{!img.Header}" description = "{!img.Description}" alternativeText = "{!img.AlterText}" href = "{!img.imgUrl}">
+                        </lightning:carouselImage>
+                    </aura:iteration>
+                </lightning:carousel>
+            </div>
+        </div>
+    </div>
+</aura:component>

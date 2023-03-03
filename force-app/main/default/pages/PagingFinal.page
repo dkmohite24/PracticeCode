@@ -1,0 +1,44 @@
+<apex:page controller="paginationforcontactscontroller" >
+    <apex:form >
+        <apex:pageBlock title="Contacts" id="pb">
+            
+            <apex:pageBlockTable value="{!finallist}" var="cont">
+                <apex:column value="{!cont.name}"/>
+                <apex:column value="{!cont.department}"/>
+                <apex:column value="{!cont.phone}"/>
+                <apex:column value="{!cont.title}"/>
+                <apex:column value="{!cont.fax}"/>
+                
+            </apex:pageBlockTable>
+            
+            <apex:outputPanel >
+ 
+                <table style="width: 100%"><tr>
+                    <td align="center">
+                        <apex:commandLink action="{!IsFirstPage }" value="<<" reRender="pb" />
+                        
+                        &nbsp;&nbsp;  
+                        <apex:commandLink action="{!isPrevious}" value="< Previous"  reRender="pb" />
+                        &nbsp;&nbsp;  
+                        <apex:commandLink action="{!IsNext}" value="Next >"  reRender="pb" />
+                        &nbsp;&nbsp;  
+                        <apex:commandLink action="{!IsLastPage}" value=">>"  reRender="pb" />
+                        
+                    </td>
+                    
+                    </tr></table>
+                <apex:actionFunction name="callChangePage" action="{!Box}" reRender="pb" />
+                
+                <apex:actionFunction name="show" action="{!refresh}" reRender="pb" />
+                
+                <apex:selectList value="{!Pagesize}"  multiselect="false" size="1" onchange="show()" >
+                    <apex:selectOptions value="{!items}"/ >
+                        <div align="right" draggable="false" >
+                           
+                            page <apex:inputText style="width: 30px; height: 20px" onchange="callChangePage()" value="{!page}"/> of {!totalpages}
+                        </div>
+                    </apex:selectList>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:page>

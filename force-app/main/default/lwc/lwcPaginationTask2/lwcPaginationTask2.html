@@ -1,0 +1,209 @@
+<template>
+    <lightning-card title="Custom Account Search">
+        <lightning-layout multiple-rows ="true" vertical-align="end" >
+
+            
+                
+            <lightning-layout-item size="4" padding="around-small">
+                 <!--Input text to Search Account-->
+                 <!--Search onchange-->
+                <lightning-input type="text" label="Enter Account Name To Search"
+                    value={searchKey} 
+                    onchange={SearchAccountHandler}> 
+                </lightning-input>
+                
+            </lightning-layout-item > 
+        
+        </br>
+    </br>
+
+                <lightning-layout-item multiple-rows ="true"  size="1">
+
+                    <lightning-combobox
+            
+                    class="slds-p-bottom_small"
+            
+                    name="progress"
+            
+                    label="Sort By"
+            
+                    value={value}
+            
+                    options={options}
+            
+                    onchange={handlePickListChange}>
+                </lightning-combobox>
+            
+                </lightning-layout-item>
+                
+        
+            <lightning-layout-item size="12" padding="around-small">
+                <!--List Of Account Using data Tabel-->
+                <lightning-datatable key-field="id" data={accounts} columns ={cols} hide-checkbox-column="true" onrowaction={handleRowAction}> 
+                    
+                </lightning-datatable>
+                
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+    <template if:true={modalContainer}>
+        <section  class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalAction}>
+                       <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                    </button>
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Account Record Detail</h2>
+                 </header>
+
+                 <div class="slds-modal__content slds-p-around_medium">
+                  <!--  <table class="slds-table slds-table_bordered slds-table_col-bordered slds-table_cell-buffer">
+                       <thead> 
+                        <tr>
+                            <th>First Name</th>
+                            <th>Type</th>
+                            <th>Industry</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>
+                            <td>{accRow.Name}</td>
+                            <td>{accRow.Type}</td>
+                            <td>{accRow.Industry}</td>
+                            <td>{accRow.Phone}</td>
+                        </tr>
+                    </tbody>   
+                    </table>
+                    -->
+                    
+                    <lightning-card  variant="Narrow"  title="Account" icon-name="standard:account">
+                        <div class="slds-m-around_large">
+                            <p class="slds-p-horizontal_small">
+                                {currentRecordId} 
+                            Account Name :-<lightning-formatted-text class="slds-m-around_large" value={accRow.Name} ></lightning-formatted-text> <br/>
+                            Type :- <lightning-formatted-text class="slds-m-around_large" value={accRow.Type} ></lightning-formatted-text> <br/>
+                            Industry :- <lightning-formatted-text class="slds-m-around_large" value={accRow.Industry} ></lightning-formatted-text><br/>
+                            Phone :- <lightning-formatted-text class="slds-m-around_large" value={accRow.Phone} ></lightning-formatted-text>
+
+                            </p>
+                            <footer class="slds-card__footer">
+                                <lightning-button label="Edit" variant="brand-outline" title="Edit" class="slds-align_absolute-center" onclick={accEditOpen}></lightning-button>
+
+                            </footer>
+                        </div>
+                        
+                        
+                    </lightning-card>   
+                    <lightning-card title="Related Contact">
+                        <lightning-datatable key-field="id" data={contactsLst} columns ={cols2} hide-checkbox-column="true" onrowaction={conRowAction}  >
+                        </lightning-datatable>
+                    </lightning-card>
+                    </div>
+                 <footer class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Close" title="Close"  onclick={closeModalAction} ></lightning-button>
+               </footer> 
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+<!-- modal start  Account edit modal-->        
+<template if:true={accEditModel}>
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <!-- modal header start -->
+        <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={accEditClose}>
+                <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 class="slds-text-heading_medium slds-hyphenate">Account edit modal</h2>
+        </header>
+        <!-- modal body start -->
+        <div class="slds-modal__content slds-p-around_medium">
+    
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Name" value={accRow.Name} onchange={accNameChange}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Type" value={accRow.Type} onchange={accTypeChange}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Industry" value={accRow.Industry} onchange={accIndustryChange}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Phone" value={accRow.Phone} onchange={accPhoneChange}></lightning-input>
+            </div>
+    </div>
+    <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button--destructive" onclick={accEditClose}>Cancel</button>
+        
+            <button class="slds-button slds-button_brand" onclick={accsave} >Save</button>
+        </footer>
+        
+    </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open">
+    </div>
+    </template>
+    <!-- modal end Account -->
+
+
+<!-- modal start Contact edit modal-->        
+<template if:true={conEditModel}>
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <!-- modal header start -->
+        <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={conEditClose}>
+                <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 class="slds-text-heading_medium slds-hyphenate">Contact edit modal</h2>
+        </header>
+        <!-- modal body start -->
+        {conrecId}
+        <div class="slds-modal__content slds-p-around_medium">
+    
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="LastName" onchange={conNameChange} value={conRow.LastName}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Title"  onchange={conTitleChange} value={conRow.Title}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Phone" onchange={conPhoneChange} value={conRow.Phone}></lightning-input>
+            </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input label="Email"  onchange={conEmailChange} value={conRow.Email}></lightning-input>
+            </div>
+    </div>
+    <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button--destructive" onclick={conEditClose}>Cancel</button>
+        
+            <button class="slds-button slds-button_brand" onclick={conSave} >Save</button>
+        </footer>
+        
+    </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open">
+    </div>
+    </template>
+    <!-- modal end Contact -->
+
+</template>

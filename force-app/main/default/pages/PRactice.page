@@ -1,0 +1,45 @@
+<apex:page standardController="Account">
+    <chatter:feedWithFollowers entityId="0012w00000Wvm9nAAB"/>
+    <apex:pageBlock title="Account Details">
+        <apex:pageBlockSection >
+            <apex:outputField value="{! Account.Name }"/>
+            <apex:outputField value="{! Account.Phone }"/>
+            <apex:outputField value="{! Account.Industry }"/>
+            <apex:outputField value="{! Account.AnnualRevenue }"/>
+            <apex:outputField value="{! Account.CreatedBy.name }"/>
+            <apex:outputField value="{! Account.CreatedById }"/>
+            <apex:outputField value="{! Account.CreatedDate }"/>
+            <apex:outputField value="{! Account.fax }"/>        
+            <apex:outputField value="{! Account.Email__c }"/>
+            <apex:outputField value="{! Account.OwnerId }"/>          
+            <apex:outputField value="{! Account.billingstreet }"/>
+            <apex:outputField value="{! Account.billingCity }"/>
+            <apex:outputField value="{! Account.billingCountry }"/>
+            <apex:outputField value="{! Account.BillingState }"/>
+            <apex:outputField value="{! Account.billingPostalCode }"/>
+            <apex:outputField value="{! Account.BillingLatitude }"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Contacts">
+        <apex:pageBlockTable value="{!Account.contacts}" var="contact">
+            <apex:column value="{!contact.Name}"/>
+            <apex:column value="{!contact.Title}"/>
+            <apex:column value="{!contact.Phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="Opportunities">
+        <apex:pageBlockTable value="{!Account.Opportunities}" var="Opp">
+            <apex:column value="{!Opp.id}"/>
+            <apex:column value="{!Opp.Name}"/>
+            <apex:column value="{!Opp.Amount}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="Cases">
+        <apex:pageBlockTable value="{!Account.Cases}" var="Cases">
+            <apex:column value="{!Cases.Priority}"/>
+            <apex:column value="{!Cases.Status}"/>
+            <apex:column value="{!Cases.Subject}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+</apex:page>

@@ -1,0 +1,65 @@
+<apex:page standardController="contact" extensions="YearOverYearController">
+    <apex:form >
+        <apex:pageBlock title="My Inline Visualforce page 2">
+            <table border="1px" column = '14'>
+                <thead>
+                     <apex:repeat value="{!Options} " var="opt">
+                        <tr>
+                            <td>
+                                <apex:outputText value="{!opt}"/>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+    
+                    
+                    <apex:repeat value="{!options}" var="key"> 
+                        <apex:repeat value="{!mrnFinal[key]}" var="map"> 
+                           <apex:outputText value="{! key}" /> -- <Apex:outputText value="{!map}"/> 
+                            <br/>
+                        </apex:repeat> 
+                    </apex:repeat>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MrnCount</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            PhysicianCharge
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table border = "1px">
+                
+                <thead> 
+                    <td> </td>
+                    <apex:repeat value="{!OptionsUp}" var="b">
+                        <th>
+                            {!b}
+                        </th>
+                        
+                    </apex:repeat>
+                    <tr>
+                        <td>PhysicianCharge </td> 
+                    <apex:repeat value="{!optionsup}" var="key"> 
+                        <apex:repeat value="{!PhyFinal[key]}" var="map"> 
+                           <apex:outputText value="{!key}" /> -- <Apex:outputText value="{!map}"/> 
+                            <br/>
+                        </apex:repeat> 
+                    </apex:repeat>
+                    </tr>
+                    <tr>
+                        <td>MRN COunt</td>
+                         <apex:repeat value="{!optionsup}" var="key"> 
+                        <apex:repeat value="{!mrnFinal[key]}" var="map"> 
+                           <apex:outputText value="{!key}" /> -- <Apex:outputText value="{!map}"/> 
+                            <br/>
+                        </apex:repeat> 
+                    </apex:repeat>
+                    </tr>
+                </thead>
+            </table>
+        </apex:pageBlock>  
+    </apex:form>
+</apex:page>
