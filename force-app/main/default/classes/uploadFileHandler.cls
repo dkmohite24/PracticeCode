@@ -7,6 +7,7 @@ public class uploadFileHandler {
         for(ContentDocumentLink cdLink:cdl){  
             documentIds.add(cdLink.ContentDocumentId);  
         }      
+        
         return [SELECT Id,Title,FileType FROM ContentDocument WHERE id IN: documentIds];  
     } 
     
