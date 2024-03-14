@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-align_absolute-center">
+        <lightning-button-group>
+            <template for:each={pages} for:item="page">
+                <lightning-button key={page} label={page} onclick={handlePageClick}
+                   ></lightning-button>
+            </template>
+        </lightning-button-group>
+        <!-- <div class="current-page">Page {currentPage} of {totalPages}</div> -->
+    </div>
+</template>

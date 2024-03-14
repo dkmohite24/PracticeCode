@@ -1,0 +1,34 @@
+<template>
+    <lightning-layout horizontal-align="center">
+        <lightning-layout-item padding="around-small" size="6">
+            <lightning-input label="Search" type="search" placeholder="Enter your search query" onchange={handleSearch}
+                variant="label-hidden" class="custom-search">
+            </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <lightning-combobox label="Language" value={faqValue} options={languageOptions}
+                onchange={handlePicklistChange}></lightning-combobox>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+        active-section-name={activeSection}>
+        <template for:each={displayedCustomObjectData} for:item="customObject">
+            <lightning-accordion-section key={customObject.Id} label={customObject.Name} class="accordion-section">
+                <!-- <div class="accordion-label">{customObject.Name}</div> -->
+                <p class="question">
+                    <strong>Question:</strong> {customObject.Question__c}
+                </p>
+                <p class="answer">
+                    <strong>Answer:</strong>
+                    <lightning-formatted-rich-text value={customObject.Answer__c}></lightning-formatted-rich-text>
+                </p>
+                
+                <img if:true={customObject.ImageUrl__c} src={customObject.ImageUrl__c} />
+            </lightning-accordion-section>
+        </template>
+    </lightning-accordion>
+    <div slot="footer">
+        <c-faq-pagination total-pages={totalPages} current-page={currentPage} onpagechange={handlePageChange}>
+        </c-faq-pagination>
+    </div>
+</template>

@@ -1,0 +1,35 @@
+.accordion-section {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.accordion-label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.custom-search {
+    padding-right: 50px;
+    padding-top: 23px;
+
+}
+
+.question {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answer {
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.answer img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}

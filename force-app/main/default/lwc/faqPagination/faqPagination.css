@@ -1,0 +1,16 @@
+lightning-button{
+    --slds-c-button-radius-border: 50%;
+    --slds-c-button-neutral-spacing-inline-end: 16px;
+    --slds-c-button-neutral-spacing-inline-start: 16px;
+    --slds-c-button-text-color: #002f6c;
+    --slds-c-button-line-height: 38px;
+    --slds-c-button-neutral-color-background: none;
+    --slds-c-button-neutral-color-border-hover : none;
+}
+
+.currentPage{
+    --slds-c-button-neutral-color-background : #00508c;
+    --slds-c-button-neutral-color-background-active : #00508c;
+    --slds-c-button-text-color: #fff;
+    --slds-c-button-neutral-color-border-hover : null;
+}
