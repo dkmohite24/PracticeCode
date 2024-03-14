@@ -1,0 +1,137 @@
+<template>
+    <!-- Replica of the Lightning LookUp Component -->
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" for="combobox-unique-id" if:true={fieldlabelNullCheck}>
+            <div if:true={requiredCondition}>
+                <label class="slds-required">*</label>
+            </div>{fieldLabel}
+            <div if:true={showInfoText}> &nbsp;
+                <lightning-helptext content={infoText}>
+                </lightning-helptext>
+            </div>
+        </label>
+        <div class={getSldsCondtionForError}>
+            <div class={comboHeaderStyle}>
+                <div class={innerComboHeaderStyle} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                    <template if:false={hideInput}>
+                        <div class={styleOfSelectedObject} if:false={optionSelected}>
+                            <input type="text"
+                                class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value"
+                                id="combobox-id-4" disabled={readOnly} aria-activedescendant="option1"
+                                aria-autocomplete="list" onfocus={inputInFocus} onclick={inputInFocus} placeholder={placeholderValue}
+                                onkeyup={handleEnteredValueChange} aria-controls="listbox-id-4"
+                                autocomplete="off" role="textbox" value={enteredValue} />
+                            <span if:true={hideSearchIconCondition}
+                                class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right"
+                                title="Description of icon when needed">
+                                <lightning-icon icon-name="utility:search" size="x-small">
+                                </lightning-icon>
+                                <span class="slds-assistive-text">Enter the name to be searched</span>
+                            </span>
+                        </div>
+                        <div class="slds-grid">
+							<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+								role="none" if:true={optionSelected}>
+								<span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+										title="Account">
+										<lightning-icon icon-name={iconName} size="x-small"></lightning-icon>
+										<span class="slds-assistive-text">Account</span>
+								</span>
+								<input type="text" class="slds-input slds-combobox__input min-height-style" id="combobox-id-5"
+										aria-controls="listbox-id-5" autocomplete="off" role="textbox"
+										placeholder="Select an Option" disabled value={selectedObjectDisplayName} />
+								<button
+										class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right"
+										title="Remove selected option" onclick={removeSelectedOption}>
+										<lightning-icon icon-name="utility:close" size="x-small" if:false={readOnly}>
+										</lightning-icon>
+										<span class="slds-assistive-text">Remove selected option</span>
+								</button>
+							</div>
+							<template if:true={showlookuprecdetail}>
+                                <c-a-t-i-lookup-record-detail fields={SecondaryDisplayFields} object-name={objectName} record-id={recordId}></c-a-t-i-lookup-record-detail>
+                            </template>
+                        </div>
+                    </template>                                        
+                    <div id="listbox-id-2"                        
+                        role="listbox" if:true={checkSearchListlength}>
+                        <ul class={listClasses} role="presentation"
+                            id="listView">
+                            <template for:each={objectList} for:item="object" for:index="index">
+                                <li role="presentation" class="slds-listbox__item " key={object.Id}
+                                    onmousedown={onRowSelectHandler} onmouseover={selectCurrentResult}
+                                    onmouseout={unselectCurrentIndex} data-index={index}>
+                                    <div aria-selected="true" data-index={index}
+                                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                        role="option" tabindex="0" key={object.Id}>
+                                        <span if:true={hideSearchIconCondition} class={iconNameCondition}
+                                            key={object.Id}>
+                                            <span class="slds-media__figure slds-listbox__option-icon" key={object.Id}>
+                                                <span class="slds-icon_container slds-icon-utility-search"
+                                                    title="Class Name" key={object.Id}>
+                                                    <lightning-icon icon-name={iconName} size="x-small">
+                                                    </lightning-icon>
+                                                    <span class="slds-assistive-text">Description of icon</span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span class="slds-media__body" data-index={index} key={object.Id}>
+                                            <c-a-t-i-lookup-data-web-component object={object}
+                                                field-name={primaryDisplayField}
+                                                alternate-field-list={SecondaryDisplayFields} object-list={objectList}
+                                                index={index}>
+                                            </c-a-t-i-lookup-data-web-component>
+                                        </span>
+                                    </div>
+                                </li>
+                                <hr key={object.Id} class="zero-margin" if:false={object.isLastIndex}>
+                            </template>
+                        </ul>
+                    </div>
+                    <div role="listbox" if:true={checkWhenSearchLengthEnteredZero}>
+                        <ul class={listClasses}
+                            role="presentation">
+                            <li role="presentation" class="slds-listbox__item">
+                                <span
+                                    class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                    role="option">
+                                    <span class={searchingCheck}><span
+                                            class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                            <center>
+                                                <b>No Records Found</b>
+                                                <span class={enteredValueCheck}>(enter
+                                                    at least {minimumCharacter} char)</span>
+                                            </center>
+                                        </span>
+                                    </span>
+                                    <span class={searchingCheckForSpinner}>
+                                        <center>
+                                            <div class="demo-only height-style">
+                                                <div role="status" class="slds-spinner slds-spinner_small">
+                                                    <span class="slds-assistive-text">Loading</span>
+                                                    <div class="slds-spinner__dot-a"></div>
+                                                    <div class="slds-spinner__dot-b"></div>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </span>
+                                    <span class={queryErrorFoundCheck}>
+                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                            <center>
+                                                <b>{queryErrorMessage}</b>
+                                            </center>
+                                        </span>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="error-message" class={requiredErrorMessageCheck}>
+                &nbsp;&nbsp;{requiredErrorMessage}</div>
+            <div class={validateIdErrorMessageCheck}>
+                &nbsp;&nbsp;{validateIdErrorMessage}</div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,44 @@
+<template>
+	<header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Cancel Extended Warranty</h2>
+	</header>
+	<template if:false={isLoaded}>
+		<lightning-spinner alternative-text="Loading"></lightning-spinner>
+	</template>
+	<template if:true={isLoaded}>
+		<template if:false={allowCancellation}>
+			<div class="slds-align_absolute-center slds-p-bottom_x-large slds-p-top_xx-large">
+				<p><lightning-formatted-text value={userMsg}></lightning-formatted-text></p>
+			</div>
+		</template>
+		<template if:true={allowCancellation}>
+			<lightning-card title="" class="slds-align_absolute-center slds-p-bottom_x-large slds-p-left_x-large slds-p-right_x-large" >
+				<lightning-combobox options={reasonOptions} value={reason}
+					label="Reason" onchange={handleReasonChange} placeholder="Select Reason for Cancellation" required>
+				</lightning-combobox>
+				<br></br>
+				<h2>Pricing Details</h2>
+				<lightning-datatable
+						key-field="Id"
+						data={transactionHistLIs}
+						columns={columns}
+						oncellchange={handleSave}
+						draft-values={draftValues}
+						hide-checkbox-column
+						suppress-bottom-bar>
+				</lightning-datatable>
+			</lightning-card>
+		</template>
+	
+	</template>
+	<footer class="slds-modal__footer">
+		<template if:true={allowCancellation}>
+			<lightning-button class="slds-m-top_small slds-m-right_small" variant="brand"
+				title="Cancel WR" label="Cancel WR" onclick={handleSuccess}>
+			</lightning-button>
+		</template>
+		<lightning-button class="slds-m-top_small" variant="brand"
+			title="Cancel" label="Cancel" onclick={handleCancel}>
+		</lightning-button>
+	</footer>
+</template>

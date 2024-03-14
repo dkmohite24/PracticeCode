@@ -1,0 +1,14 @@
+<apex:page >
+    <apex:includeLightning />
+    <div id="lightning" />
+     <script>
+     $Lightning.use("c:Gys_userRegapp", function() {
+      $Lightning.createComponent("c:UserRegistration", {},"lightning",
+                                 function(cmp) {
+                console.log("component was created");
+              }
+          );
+            });
+                                
+    </script>
+</apex:page>

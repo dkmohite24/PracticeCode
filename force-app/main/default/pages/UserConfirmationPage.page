@@ -1,0 +1,29 @@
+<apex:page >
+    <apex:includeLightning />
+     <div id="lightningPage"/>
+    <script>
+    //get account Id from URL
+    var storeNumber = "{!$CurrentPage.parameters.username}";
+    var storeRec="{!$CurrentPage.parameters.recid}";
+	var storeRole="{!$CurrentPage.parameters.role}";
+    var storeCode="{!$CurrentPage.parameters.code}";
+    var storeFname="{!$CurrentPage.parameters.Fname}";
+    var storeLname="{!$CurrentPage.parameters.Lname}";
+    var storeCompany="{!$CurrentPage.parameters.Com}";
+    var storeLocale="{!$CurrentPage.parameters.Loc}";
+    var storeEmail="{!$CurrentPage.parameters.Email}";
+
+
+     console.log('STORE NUMBER: '+storeNumber);
+         console.log('STORE REC NUMBER: '+storeRec);
+
+    //Create Lightning Component
+    $Lightning.use("c:Gys_userConfapp", function() {
+        $Lightning.createComponent("c:NewSalesforceUserFom", 
+                                   { "userNameFromURL" : storeNumber ,"recidFromURL" : storeRec,"roleFromURL" : storeRole ,"codeFromURL" : storeCode,"fnameFromURL" : storeFname,"lnameFromURL" : storeLname,"companyFromURL" : storeCompany,"localeFromURL" : storeLocale,"emailFromURL" : storeEmail },
+                                   "lightningPage", function(component) {
+                                       console.log('Component created');
+                                   });
+    });
+    </script>
+</apex:page>

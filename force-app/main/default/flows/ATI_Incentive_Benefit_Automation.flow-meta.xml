@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Assigns the Value, and Quantity of the Proposal Line Items</description>
+        <name>Assign_Proposal_Totals</name>
+        <label>Assign Proposal Totals</label>
+        <locationX>264</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>ProposalValue</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Benefit_Records.ATI_Total_Benefit_Value__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Quantity</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Benefit_Records.MaximumQualifyingValue</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Benefit_Records</targetReference>
+        </connector>
+    </assignments>
+    <description>Flow used for incentive benefit line item automation.</description>
+    <environments>Default</environments>
+    <interviewLabel>Data Review {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Incentive Benefit Automation</label>
+    <loops>
+        <description>Loops the benefit records with the purpose of calculating the total value for approval</description>
+        <name>Loop_Benefit_Records</name>
+        <label>Loop Benefit Records</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <collectionReference>Get_All_Rebate_Benefit_Type_Records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Proposal_Totals</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Rebate_Proposal</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Gets all of the Rebate Benefit type records related to the parent Incentive Proposal</description>
+        <name>Get_All_Rebate_Benefit_Type_Records</name>
+        <label>Get All Rebate Benefit Type Records</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Benefit_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_Incentive_Program__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ATI_Incentive_Program__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ProgramRebateTypeBenefit</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Updates the Rebate Proposal</description>
+        <name>Update_Rebate_Proposal</name>
+        <label>Update Rebate Proposal</label>
+        <locationX>176</locationX>
+        <locationY>731</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ATI_Incentive_Program__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ATI_Incentive_Proposal_Value__c</field>
+            <value>
+                <elementReference>ProposalValue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Incentive_Products_Total__c</field>
+            <value>
+                <elementReference>Quantity</elementReference>
+            </value>
+        </inputAssignments>
+        <object>RebateProgram</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_All_Rebate_Benefit_Type_Records</targetReference>
+        </connector>
+        <object>ProgramRebateTypeBenefit</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Variable that holds the proposal value of all benefit line items.</description>
+        <name>ProposalValue</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <description>Total Benefit Quantity</description>
+        <name>Quantity</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

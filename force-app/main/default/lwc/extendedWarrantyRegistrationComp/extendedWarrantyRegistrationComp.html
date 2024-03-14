@@ -1,0 +1,89 @@
+<template>
+<lightning-card title="Extended Policies" icon-name="custom:custom14">
+        <template if:true={showSpinner}>
+            <lightning-spinner alternative-text="Please wait.." size="medium"></lightning-spinner>
+        </template>
+		<lightning-layout horizontal-align="spread" pull-to-boundary="medium" multiple-rows="true" class="slds-var-p-vertical_medium"> 
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <c-a-t-i-look-up-web-component   field-label={label.claim_selectDealershipFieldLabel}
+                    required=true
+                    limit=5
+                    lookup-id={accountId}                                              
+                    look-up-configuration-metadata-name={lookUpConfigurationMetadataName}
+                    extra-params={extraParams}
+                    required-error-message="Please select the Business Partner"
+                    onlookupselected={handleLookupSelected}
+                    onselectedlookupremoved={handleSelectedLookupRemoved}
+                    placeholder={label.claim_searchDealerPlaceholder}>
+                </c-a-t-i-look-up-web-component>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <lightning-input type="text" name="dealerNumber" label={label.Claim_DealerNumberFieldLabel}
+                value={dealerNumber} disabled="true"></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <lightning-input type="text" name="ceNumber" placeholder="Enter CE Number" label="CE Number"
+                onchange={onCENumberChange} value={ceNumber}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <lightning-input type="text" name="trackingNumber" placeholder="Enter Tracking Number" label="Tracking Number"
+                onchange={onTrackingNumberChange} value={trackingNumber}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <lightning-input type="text" name="poNumber" placeholder="Enter PO Number" label="PO Number"
+                onchange={onPONumberChange} value={poNumber}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-bottom_x-small" padding="horizontal-small" size="6" >
+                <lightning-input type="date" name="PurchaseDate" placeholder="Extended Warranty Purchase Date" label="Purchase Date" required="true" 
+            onchange={handleDateChange} value={purchaseDateVal} max={today}></lightning-input>
+            </lightning-layout-item>		
+		</lightning-layout>
+		<br/><br/>
+    <template if:true={inProgressWR}>
+        <div style="text-align: center;color:red;" >
+            {error}
+        </div>
+    </template>
+	
+		<div style="text-align: center;color:brown;" >
+            {warningMsg}
+        </div><br/><br/>
+	
+    <template if:true={seeExtndPolicy}>
+        <div style="height: 120px;border: 2px outset black;text-align: center">
+        <lightning-datatable
+                key-field="id"
+                data={policyDetails}
+                columns={columns}
+                onrowselection={handleRowAction}>
+        </lightning-datatable>
+        </div><br/><br/>
+
+        <template if:true={seePricingData}>
+            <div style="text-align: center" >Extended Warranty Pricing for Policies
+                <div style="height: auto;border: 2px outset black;text-align: center">
+                    <lightning-datatable key-field="id1"
+                        data={extendedWRpricingDetails}
+                        columns={columns1}
+                        selected-rows={selection}
+                        max-row-selection="1"
+                        onsave={handleSave}
+                        draft-values={draftValues}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </div>
+                <div><br/>
+                    <lightning-button variant="brand" label="Save" onclick={handleClick} class="slds-m-middle_x-small" disabled={disableSaveButton}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <template if:false={seePricingData}>
+            <div style="text-align: center;color:red;" >
+                {error}
+            </div>
+        </template>
+</template>
+    
+</lightning-card>
+</template>

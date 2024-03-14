@@ -1,0 +1,51 @@
+.hrStyle {
+    margin: 0;
+}
+
+.highlight {
+    background-color: #F5F5F5;
+}
+
+.highlightDark {
+    background-color: #e6e6e6;
+}
+
+.slds-input {
+    border: none !important;
+    min-height: calc(1.875rem + (1px * 2));
+}
+
+.query-more {
+    border-top: 2px solid cornflowerblue;
+}
+
+.dropdown-shadow {
+    box-shadow: 3px 3px 10px 0px;
+}
+
+.zindex-style {
+    z-index:1000;
+}
+
+.max-heightstyle{
+    max-height:100px;
+}
+
+.zero-margin {
+    margin:0;
+}
+.two-hundredheight-style{
+    max-height:200px;
+}
+.height-style{
+    height:1rem;
+}
+.displaynone-style {
+    display:none;
+}
+.displayblock-style{
+    display:block;
+}
+.min-height-style{
+    min-height: calc(1.875rem + (1px * 2));
+}

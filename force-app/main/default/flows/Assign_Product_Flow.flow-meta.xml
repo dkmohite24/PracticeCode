@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Assign_PITB_record_to_collection</name>
+        <label>Assign record to collection</label>
+        <locationX>352</locationX>
+        <locationY>890</locationY>
+        <assignmentItems>
+            <assignToReference>Coll_PITB</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Record_PITB</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Claim_Line_Items</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns the record to a new collection</description>
+        <name>Assign_Record_to_Collection</name>
+        <label>Assign Record to Collection</label>
+        <locationX>352</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>var_Count</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Claim_Item_Associated_to_Product</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_claimed_Count</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Products.ATI_Claimed_Units__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_record_Variable</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assign the record to a Collection for Update</description>
+        <name>Assign_to_Collection</name>
+        <label>Assign to Collection</label>
+        <locationX>440</locationX>
+        <locationY>1214</locationY>
+        <assignmentItems>
+            <assignToReference>Coll_IC</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>record_IC</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Claim_Line_Items</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Creates a line item record for update collection</description>
+        <name>Create_Line_Item_Record</name>
+        <label>Create Line Item Record</label>
+        <locationX>440</locationX>
+        <locationY>1106</locationY>
+        <assignmentItems>
+            <assignToReference>record_IC.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Claim_Line_Items.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>record_IC.Product_Attributed_to_Proposal__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_to_Collection</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Creates a record variable that will be assigned to a collection that can be used to update the attribution collection</description>
+        <name>Create_record_Variable</name>
+        <label>Create record Variable</label>
+        <locationX>352</locationX>
+        <locationY>782</locationY>
+        <assignmentItems>
+            <assignToReference>Record_PITB.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Products.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Record_PITB.ATI_Claimed_Units__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Form_total_quantity</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_PITB_record_to_collection</targetReference>
+        </connector>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <description>totals the quantity</description>
+        <name>Form_total_quantity</name>
+        <dataType>Number</dataType>
+        <expression>{!var_claimed_Count} + {!var_Count}</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Assign Product Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Assign Product Flow - deprecate</label>
+    <loops>
+        <description>Loops Claim line items to flag they have already been associated to the correct product.</description>
+        <name>Loop_Claim_Line_Items</name>
+        <label>Loop Claim Line Items</label>
+        <locationX>352</locationX>
+        <locationY>998</locationY>
+        <collectionReference>Get_Claim_Item_Associated_to_Product</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Create_Line_Item_Record</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Loop_Products</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <description>Loops the Products associated with the Incentive Proposal.</description>
+        <name>Loop_Products</name>
+        <label>Loop Products</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <collectionReference>Get_all_Proposal_Incentive_Type_benefit_records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Get_Claim_Item_Associated_to_Product</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_PITB_Records</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Gets all of the proposal type benefit items, to be used in Get elements later in the Flow</description>
+        <name>Get_all_Proposal_Incentive_Type_benefit_records</name>
+        <label>Get all Proposal Incentive Type benefit records</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Products</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_Incentive_Program__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Current_CE.Incentive_Proposal__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ProgramRebateTypeBenefit</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets the claim line item associated with the product</description>
+        <name>Get_Claim_Item_Associated_to_Product</name>
+        <label>Get Claim Item Associated to Product</label>
+        <locationX>352</locationX>
+        <locationY>566</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Record_to_Collection</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_Proposal_Incentive_Type_Benefit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Loop_Products.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Claim_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Primary</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Product_Attributed_to_Proposal__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>RebateClaim</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets the current CE record</description>
+        <name>Get_Current_CE</name>
+        <label>Get Current CE</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_all_Proposal_Incentive_Type_benefit_records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ATI_C_E__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Updates the IC records to indicate they&apos;ve been attributed to the proposal.</description>
+        <name>Update_IC_records</name>
+        <label>Update IC records</label>
+        <locationX>176</locationX>
+        <locationY>1598</locationY>
+        <inputReference>Coll_IC</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_PITB_Records</name>
+        <label>Update PITB Records</label>
+        <locationX>176</locationX>
+        <locationY>1490</locationY>
+        <connector>
+            <targetReference>Update_IC_records</targetReference>
+        </connector>
+        <inputReference>Coll_PITB</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Click_to_assign</name>
+        <label>Click to assign</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_Current_CE</targetReference>
+        </connector>
+        <fields>
+            <name>Click2Assign</name>
+            <fieldText>&lt;p&gt;Click Finish to attribute this claim to the relevant line items.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Click_to_assign</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Incentive Claim Collection</description>
+        <name>Coll_IC</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>RebateClaim</objectType>
+    </variables>
+    <variables>
+        <name>Coll_PITB</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ProgramRebateTypeBenefit</objectType>
+    </variables>
+    <variables>
+        <description>Incentive Claim record to update the attribution value</description>
+        <name>record_IC</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>RebateClaim</objectType>
+    </variables>
+    <variables>
+        <name>Record_PITB</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ProgramRebateTypeBenefit</objectType>
+    </variables>
+    <variables>
+        <description>Gets the current CE record ID</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Count of items that have been claimed already</description>
+        <name>var_claimed_Count</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>var_Count</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

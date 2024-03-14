@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Assigns the CE record to the Collection Variable</description>
+        <name>Assign_CE_Record_to_Collection</name>
+        <label>Assign CE Record to Collection</label>
+        <locationX>264</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>Coll_CE</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Record_CE</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_All_CE_s</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Clear the checked out by field</description>
+        <name>Clear_Checked_Out_By</name>
+        <label>Clear Checked Out By</label>
+        <locationX>264</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>Record_CE.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_All_CE_s.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Record_CE.Checked_Out_by__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_CE_Record_to_Collection</targetReference>
+        </connector>
+    </assignments>
+    <description>This flow will run on button click, and allow the current user to check out a CE record</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Full Name Formula</description>
+        <name>FullName</name>
+        <dataType>String</dataType>
+        <expression>{!$User.FirstName}+&quot; &quot;+{!$User.LastName}</expression>
+    </formulas>
+    <interviewLabel>CE Checkout {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CE Checkout</label>
+    <loops>
+        <description>Loops all the CE records that have the current users name stamped in the checked out by field. This loop will clear the value in the checked out by field, and update.</description>
+        <name>Loop_All_CE_s</name>
+        <label>Loop All CE&apos;s</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <collectionReference>Get_CE_records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Clear_Checked_Out_By</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_all_CE_records</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Gets all CE records with the current users name on the checkedoutby field</description>
+        <name>Get_CE_records</name>
+        <label>Get CE records</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_All_CE_s</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Checked_Out_by__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>FullName</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ATI_C_E__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets the Current CE record ID</description>
+        <name>Get_Current_CE</name>
+        <label>Get Current CE</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Out_Current_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ATI_C_E__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_all_CE_records</name>
+        <label>Update all CE records</label>
+        <locationX>176</locationX>
+        <locationY>866</locationY>
+        <connector>
+            <targetReference>Update_Current_Claim_Header</targetReference>
+        </connector>
+        <inputReference>Coll_CE</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Updates the current claim header</description>
+        <name>Update_Current_Claim_Header</name>
+        <label>Update Current Claim Header</label>
+        <locationX>176</locationX>
+        <locationY>974</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Checked_Out_by__c</field>
+            <value>
+                <elementReference>FullName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>ATI_C_E__c</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <description>Screen used to initiate the record check out process</description>
+        <name>Check_Out_Current_Record</name>
+        <label>Check Out Current Record</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_CE_records</targetReference>
+        </connector>
+        <fields>
+            <name>Instructions</name>
+            <fieldText>&lt;p&gt;Click &apos;Next&apos; to checkout this CE record and any related Incentive Claim records. If you are not seeing any records after clicking next, ensure that your related list has been set up, and filtered by your full name.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Current_CE</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Collection variable for the CE</description>
+        <name>Coll_CE</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ATI_C_E__c</objectType>
+    </variables>
+    <variables>
+        <description>Record variable for update</description>
+        <name>Record_CE</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ATI_C_E__c</objectType>
+    </variables>
+    <variables>
+        <description>Records for IC</description>
+        <name>record_IC</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>RebateClaim</objectType>
+    </variables>
+    <variables>
+        <description>Variable that holds the record ID</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

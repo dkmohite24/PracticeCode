@@ -1,0 +1,9 @@
+<template>
+    <!-- Display the lookup drop down list -->
+    <span class="slds-listbox__option-text slds-listbox__option-text_entity whitespace-style">&nbsp;&nbsp;<b>{displayName}</b></span>
+    <div if:true={alternativeFieldSetCondition}>
+        <span class="span-color slds-listbox__option-meta slds-listbox__option-meta_entity secondaryFieldDisplay"
+            >&nbsp;{secondaryFields}
+        </span>
+    </div>
+</template>

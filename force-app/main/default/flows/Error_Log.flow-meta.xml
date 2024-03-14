@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_ErrorEmail</name>
+        <label>Send Email</label>
+        <locationX>50</locationX>
+        <locationY>839</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>StoreEmailIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Incentive Claim Error</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Email_Body</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <description>It will assign all the email Ids</description>
+        <name>Assign_EmailIds</name>
+        <label>Assign EmailIds</label>
+        <locationX>270</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>StoreEmailIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_all_emailIds.Email_Id__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_all_emailIds</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Checking if emailIds exist.</description>
+        <name>If_emailId_Exist</name>
+        <label>If emailId Exist</label>
+        <locationX>182</locationX>
+        <locationY>731</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>StoreEmailIds</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_ErrorEmail</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Check Error Log</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>base_url</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_260}, FIND( &apos;/services&apos;, {!$Api.Partner_Server_URL_260}))</expression>
+    </formulas>
+    <interviewLabel>Error Log {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Error Log - Sales Incentive claim</label>
+    <loops>
+        <description>This will loop all the email Ids</description>
+        <name>Loop_all_emailIds</name>
+        <label>Loop all emailIds</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <collectionReference>Get_Email_Recipient</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_EmailIds</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>If_emailId_Exist</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Error Log Recipient Email Ids</description>
+        <name>Get_Email_Recipient</name>
+        <label>Get Email Recipient</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_all_emailIds</targetReference>
+        </connector>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ATI_Error_Log_Recipient__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Email_Recipient</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Error</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ATI_Method_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>sendIncentiveClaim</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ATI_Class_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>ATI_SALES_Incentive_Claim_API_Services</stringValue>
+            </value>
+        </filters>
+        <object>ATI_Error_Log__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>It defines the email body</description>
+        <name>Email_Body</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Hi {!$User.FirstName},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;This error occurred while creating an Incentive Claim.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Error Log Number: &lt;a href=&quot;{!base_url}lightning/r/ATI_Error_Log__c/{!$Record.Id}/view&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;{!$Record.Name}&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Error Message :&amp;nbsp;{!$Record.ATI_Error_Message__c}&lt;/p&gt;&lt;p&gt;Error Output:&amp;nbsp;{!$Record.ATI_Output__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Thanks,&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://allisontransmissionenterprise--digcoredev.sandbox.file.force.com/servlet/servlet.ImageServer?id=0156s000000xkJ1&amp;amp;oid=00D6s0000008keC&quot; alt=&quot;&quot; title=&quot;{!$Record.Name}&quot;&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <variables>
+        <description>This will store all the Email ids</description>
+        <name>StoreEmailIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

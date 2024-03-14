@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Assign value to &apos;Claim Header Status&apos; field in Incentive proposal</description>
+        <name>Assign_value_to_Claim_Header_Status</name>
+        <label>Assign value to Claim Header Status</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Related_Incentive_Records.Claim_Header_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Status__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Incentive_Proposal</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>If related Incentive proposal record is not null</description>
+        <name>If_record_is_not_null</name>
+        <label>If record is not null</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Incentive_Records.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_value_to_Claim_Header_Status</targetReference>
+            </connector>
+            <label>Not Null</label>
+        </rules>
+    </decisions>
+    <description>Update Incentive Proposal Field &apos;Claim Header Status&apos;.</description>
+    <environments>Default</environments>
+    <interviewLabel>Update Incentive Proposal {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Incentive Proposal</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Related Incentive proposal Record</description>
+        <name>Get_Related_Incentive_Records</name>
+        <label>Get Related Incentive Records</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>If_record_is_not_null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Incentive_Proposal__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RebateProgram</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Incentive Proposal &apos;Claim Header Status&apos; Field</description>
+        <name>Update_Incentive_Proposal</name>
+        <label>Update Incentive Proposal</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <inputReference>Get_Related_Incentive_Records</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Related_Incentive_Records</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Pending Approval</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <object>ATI_C_E__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

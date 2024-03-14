@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Screen Flow launched by end users to initiate a refresh of the notification dates.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula that calculates the auto-close date</description>
+        <name>Formula_AutoClose</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate}+{!Get_Meta_Data.ATI_TAC_No_of_days_before_case_closed__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Primary reminder data, today + offset in metadata records.</description>
+        <name>Formula_Primary_Reminder</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate}+{!Get_Meta_Data.ATI_TAC_Days_for_Primary_reminder__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Secondary reminder notification data</description>
+        <name>Formula_Second_Reminder</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate}+{!Get_Meta_Data.ATI_TAC_Days_for_Secondary_reminder__c}</expression>
+    </formulas>
+    <interviewLabel>Update Notification Dates {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update Notification Dates</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Gets the source case record</description>
+        <name>Get_Case_Record</name>
+        <label>Get Case Record</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Meta_Data</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets the default Metadata record</description>
+        <name>Get_Meta_Data</name>
+        <label>Get Meta Data</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Refresh_Notifications</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>MasterLabel</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ATI_TAC_Metadata__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Updates the notification dates on a case.</description>
+        <name>Update_Notification_Dates</name>
+        <label>Update Notification Dates</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ATI_TAC_Auto_Close_Date__c</field>
+            <value>
+                <elementReference>Formula_AutoClose</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ATI_TAC_Date_of_Primary_Reminder__c</field>
+            <value>
+                <elementReference>Formula_Primary_Reminder</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ATI_TAC_Date_of_Secondary_Reminder__c</field>
+            <value>
+                <elementReference>Formula_Second_Reminder</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <screens>
+        <name>Refresh_Notifications</name>
+        <label>Refresh Notifications</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Notification_Dates</targetReference>
+        </connector>
+        <fields>
+            <name>Update_Text</name>
+            <fieldText>&lt;p&gt;Click Finish to refresh the notification schedule for a customer. If you proceed the Customer will receive an email notification on the following dates. Close this window if you do not wish to update the notification schedule.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Primary Reminder: {!Formula_Primary_Reminder}&lt;/p&gt;&lt;p&gt;Second Reminder: {!Formula_Second_Reminder}&lt;/p&gt;&lt;p&gt;Auto-Close Date: {!Formula_AutoClose}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Case_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Record ID input variable</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

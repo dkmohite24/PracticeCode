@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <description>Associate the Proposal Incentive Type benefit with loaded Claim Incentives</description>
+    <environments>Default</environments>
+    <interviewLabel>Associate PITB {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Associate PITB</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Gets the proposal Incentive Benefit Type records related to the relevant object</description>
+        <name>Get_PITB</name>
+        <label>Get PITB</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Claim_Line_Item</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_Incentive_Program__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Claim_Parent__r.Incentive_Proposal__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Identifier__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Identifier__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProgramRebateTypeBenefit</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Updates the claim line item with the ID of the related record</description>
+        <name>Update_Claim_Line_Item</name>
+        <label>Update Claim Line Item</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>ATI_Proposal_Incentive_Type_Benefit__c</field>
+            <value>
+                <elementReference>Get_PITB.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ClaimAmount</field>
+            <value>
+                <elementReference>Get_PITB.BenefitValue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ProductId</field>
+            <value>
+                <elementReference>Get_PITB.ProductId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_PITB</targetReference>
+        </connector>
+        <filterFormula>(
+ISNEW()
+||
+ISCHANGED({!$Record.Identifier__c})
+)
+&amp;&amp;
+
+NOT(ISNULL({!$Record.Identifier__c}))</filterFormula>
+        <object>RebateClaim</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

@@ -1,0 +1,16 @@
+<apex:page standardController="Account" tabStyle="Account">
+<apex:includeLightning />
+    <div id="lightning-container"></div>
+
+    <script>
+        $Lightning.use("c:MyApp", function() {
+            $Lightning.createComponent("c:ATI_SALES_ContactCreationAura",
+                {},
+                "lightning-container",
+                function(cmp) {
+                    console.log("Aura component created!");
+                }
+            );
+        });
+    </script>
+</apex:page>

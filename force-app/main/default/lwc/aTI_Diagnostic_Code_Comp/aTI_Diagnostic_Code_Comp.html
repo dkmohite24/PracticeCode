@@ -1,0 +1,30 @@
+<template>
+    <lightning-card>
+        <div >
+            <div align="right" if:false={isSuppressbottom}>
+                <lightning-button slot="actions" label="Add Row" variant="Brand" onclick={addRow}> </lightning-button>
+            </div>
+        <template if:true={data}>
+        <c-a-t-i-custom-data-table 
+        key-field="Id"
+        data={data} 
+        columns={columns}
+        onlookupselected={handleLookupSelected}
+        onselectedlookupremoved={handleSelectedLookupRemoved}
+        draft-values={draftValues} 
+        oncellchange={handleCellChange}
+        onsave={handleSave}
+        oncancel={handleCancel}
+        onrowaction={handleRowAction}
+        hide-checkbox-column
+		suppress-bottom-bar={isSuppressbottom}>
+        </c-a-t-i-custom-data-table>
+    </template>
+        <!--div class="slds-p-around_small slds-align_absolute-center">
+            <lightning-button slot="actions" label="Previous" variant="Brand" onclick={goToPrviousTab}> </lightning-button>
+            <lightning-button slot="actions" label="Save And Next" variant="Brand" onclick={goToNextTab}> </lightning-button>            
+        </div-->
+        </div>
+    </lightning-card>
+    
+</template>

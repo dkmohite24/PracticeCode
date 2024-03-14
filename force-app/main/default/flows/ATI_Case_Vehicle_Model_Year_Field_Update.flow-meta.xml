@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>This flow will update the value of &quot;Vehicle Model Year&quot; field on the Case object, with the value from &quot;Model Year&quot; field on the related Vehicle Information Object.
+If there&apos;s no value in &quot;Model Year&quot; field, then users can edit the &quot;Vehicle Model Year field&quot; on the Case layout.</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Vehicle Model Year Field Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Vehicle Model Year Field Update Final</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Vehicle_Information_Record</name>
+        <label>Get Vehicle Information Record</label>
+        <locationX>770</locationX>
+        <locationY>183</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Case_Vehicle_Model_Year_FIeld</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ATI_TAC_Vehicle_Information_Id__c</elementReference>
+            </value>
+        </filters>
+        <object>ATI_Vehicle_Information__c</object>
+        <outputAssignments>
+            <assignToReference>StoreModelYear</assignToReference>
+            <field>ATI_TAC_Model_Year__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case_Vehicle_Model_Year_FIeld</name>
+        <label>Update Case Vehicle Model Year FIeld</label>
+        <locationX>799</locationX>
+        <locationY>476</locationY>
+        <inputAssignments>
+            <field>ATI_Vehicle_Model_Year_Editable__c</field>
+            <value>
+                <elementReference>StoreModelYear</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>184</locationX>
+        <locationY>31</locationY>
+        <connector>
+            <targetReference>Get_Vehicle_Information_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ATI_TAC_Vehicle_Information_Id__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>StoreModelYear</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

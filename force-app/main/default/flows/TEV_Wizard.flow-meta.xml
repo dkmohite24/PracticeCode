@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Assigns the values of the Reference Value screen to a standardized record variable</description>
+        <name>Assign_ATI_Price</name>
+        <label>Assign ATI Price</label>
+        <locationX>1106</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Product_Benefit_Description__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ATI_Product</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Price_ATI_Price1</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Key_Assumptions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Price_Key_Assumptions</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Input__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Input_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.TEV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns the values of the Negative Benefit Value screen to a standardized record variable</description>
+        <name>Assign_NBV_to_Record_Variable</name>
+        <label>Assign NBV to Record Variable</label>
+        <locationX>578</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Product_Benefit_Description__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NBV_Competitor_Benefit_Allison_Cost</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Formula_Negative_Value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Key_Assumptions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NBV_Key_Assumptions</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Input__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Input_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.TEV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NBV_Value_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns the values of the Positive Benefit Value screen to a standardized record variable</description>
+        <name>Assign_PBV_to_Record_Variable</name>
+        <label>Assign PBV to Record Variable</label>
+        <locationX>314</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Product_Benefit_Description__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PBV_Allison_Benefit</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PBV_Economic_Value1</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Key_Assumptions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PBV_Key_Assumptions</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Input__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Input_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.TEV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>PBV_Value_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns the values of the Reference Value screen to a standardized record variable</description>
+        <name>Assign_Reference_Value_to_Record_Variable</name>
+        <label>Assign Reference Value to Record Variable</label>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Transmission_Supplier__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Ref_Value_Transmission_Supplier</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Product_Benefit_Description__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Ref_Value_Product_Description</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Ref_Value_Reference_Value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Key_Assumptions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Ref_Value_Key_Assumptions</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Input__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Input_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.TEV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns the values of the ATI Incentive screen to a standardized record variable</description>
+        <name>Copy_1_of_Assign_NBV_to_Record_Variable</name>
+        <label>Assign ATI Incentive to Record Variable</label>
+        <locationX>842</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>TEV_Input.ATI_Product_Benefit_Description__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Incentive_Competitor_Benefit_Allison_Cost</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Incentive_Economic_Value1</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Key_Assumptions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Incentive_Key_Assumptions</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Input__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Input_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.TEV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TEV_Input.Value_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Incentive_Value_Type</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Routes the flow to the appropriate input screen</description>
+        <name>Which_Input_Selected</name>
+        <label>Which Input Selected</label>
+        <locationX>710</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Create_TEV_Input</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Reference_Value</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Reference Value</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Reference_Value</targetReference>
+            </connector>
+            <label>Reference Value</label>
+        </rules>
+        <rules>
+            <name>Positive_Benefit_Value</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Positive Benefit Value</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Positive_Benefit_Value</targetReference>
+            </connector>
+            <label>Positive Benefit Value</label>
+        </rules>
+        <rules>
+            <name>Negative_Benefit_Value</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Negative Benefit Value</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Negative_Benefit_Value</targetReference>
+            </connector>
+            <label>Negative Benefit Value</label>
+        </rules>
+        <rules>
+            <name>ATI_Incentive</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ATI Incentive</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_ATI_Incentive</targetReference>
+            </connector>
+            <label>ATI Incentive</label>
+        </rules>
+        <rules>
+            <name>ATI_Price</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ATI Price</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_ATI_Price</targetReference>
+            </connector>
+            <label>ATI Price</label>
+        </rules>
+    </decisions>
+    <description>Wizard that aids in the TEV creation process.</description>
+    <dynamicChoiceSets>
+        <description>Reference to the Input Picklist field on TEV INPUT</description>
+        <name>Choice_TEV_Input</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Input__c</picklistField>
+        <picklistObject>TEV_Input__c</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <description>picklist from the value type field on the TEV input record</description>
+        <name>Choice_Value_Type</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Value_Type__c</picklistField>
+        <picklistObject>TEV_Input__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <formulas>
+        <description>Turns the input value into negative if it was entered as a positive</description>
+        <name>Formula_Negative_Value</name>
+        <dataType>Currency</dataType>
+        <expression>IF({!NBV_Economic_Value}&lt;0, {!NBV_Economic_Value}, {!NBV_Economic_Value} *-1)</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>TEV Wizard {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>TEV Wizard</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>Creates the TEV input and restarts the flow</description>
+        <name>Create_TEV_Input</name>
+        <label>Create TEV Input</label>
+        <locationX>710</locationX>
+        <locationY>758</locationY>
+        <inputReference>TEV_Input</inputReference>
+    </recordCreates>
+    <recordLookups>
+        <description>Gets the current TEV record</description>
+        <name>Get_Current_TEV</name>
+        <label>Get Current TEV</label>
+        <locationX>710</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>TEV_Wizard</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>TEV__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Create_ATI_Incentive</name>
+        <label>Create ATI Incentive</label>
+        <locationX>842</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Copy_1_of_Assign_NBV_to_Record_Variable</targetReference>
+        </connector>
+        <fields>
+            <name>Incentive_Value_Type</name>
+            <choiceReferences>Choice_Value_Type</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Value Type</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Incentive_Competitor_Benefit_Allison_Cost</name>
+            <dataType>String</dataType>
+            <fieldText>Competitor Benefit / Allison Cost</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Incentive_Economic_Value1</name>
+            <dataType>Number</dataType>
+            <fieldText>Economic Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Incentive_Key_Assumptions</name>
+            <dataType>String</dataType>
+            <fieldText>Key Assumptions</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Create_ATI_Price</name>
+        <label>Create ATI Price</label>
+        <locationX>1106</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_ATI_Price</targetReference>
+        </connector>
+        <fields>
+            <name>ATI_Product</name>
+            <dataType>String</dataType>
+            <fieldText>ATI Product</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Price_ATI_Price1</name>
+            <dataType>Number</dataType>
+            <fieldText>ATI Price</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Price_Key_Assumptions</name>
+            <dataType>String</dataType>
+            <fieldText>Key Assumptions</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Create_Negative_Benefit_Value</name>
+        <label>Create Negative Benefit Value</label>
+        <locationX>578</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_NBV_to_Record_Variable</targetReference>
+        </connector>
+        <fields>
+            <name>NBV_Value_Type</name>
+            <choiceReferences>Choice_Value_Type</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Value Type</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>NBV_Competitor_Benefit_Allison_Cost</name>
+            <dataType>String</dataType>
+            <fieldText>Competitor Benefit / Allison Cost</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>NBV_Economic_Value</name>
+            <dataType>Number</dataType>
+            <fieldText>Economic Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>NBV_Key_Assumptions</name>
+            <dataType>String</dataType>
+            <fieldText>Key Assumptions</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Create_Positive_Benefit_Value</name>
+        <label>Create Positive Benefit Value</label>
+        <locationX>314</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_PBV_to_Record_Variable</targetReference>
+        </connector>
+        <fields>
+            <name>PBV_Value_Type</name>
+            <choiceReferences>Choice_Value_Type</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Value Type</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>PBV_Allison_Benefit</name>
+            <dataType>String</dataType>
+            <fieldText>Allison Benefit</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>PBV_Economic_Value1</name>
+            <dataType>Number</dataType>
+            <fieldText>Economic Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>PBV_Key_Assumptions</name>
+            <dataType>String</dataType>
+            <fieldText>Key Assumptions</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Create_Reference_Value</name>
+        <label>Create Reference Value</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_Reference_Value_to_Record_Variable</targetReference>
+        </connector>
+        <fields>
+            <name>Ref_Value_Transmission_Supplier</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Current_TEV.ATI_Transmission_Supplier__r.Name</elementReference>
+            </defaultValue>
+            <fieldText>Transmission Supplier</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Type the name of the transmission supplier, if this is an Internal product comparison, it would be Allison.&lt;/p&gt;</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Ref_Value_Reference_Value</name>
+            <dataType>Number</dataType>
+            <fieldText>Reference Value</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Ref_Value_Product_Description</name>
+            <dataType>String</dataType>
+            <fieldText>Product Description</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Ref_Value_Key_Assumptions</name>
+            <dataType>String</dataType>
+            <fieldText>Key Assumptions</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>TEV_Wizard</name>
+        <label>TEV Wizard</label>
+        <locationX>710</locationX>
+        <locationY>242</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Which_Input_Selected</targetReference>
+        </connector>
+        <fields>
+            <name>TEV_Input_Help</name>
+            <fieldText>&lt;p&gt;Select an input to begin putting together a TEV analysis record.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Input_Type</name>
+            <choiceReferences>Choice_TEV_Input</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Input Type</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>584</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Current_TEV</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Input record ID</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Record variable for the TEV Input</description>
+        <name>TEV_Input</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>TEV_Input__c</objectType>
+    </variables>
+</Flow>

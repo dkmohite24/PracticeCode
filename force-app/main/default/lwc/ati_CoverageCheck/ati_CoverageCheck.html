@@ -1,0 +1,71 @@
+<template>
+    <lightning-card >
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+            <h2 class="slds-text-heading_medium slds-m-bottom_medium slds-align_absolute-center">
+                <b>{label.ATI_PolicySearchHeader}</b>
+            </h2>
+
+            <!-- Default/basic -->
+            <form class="slds-form--inline slds-align_absolute-center">
+            
+                <div class="slds-form-element slds-m-vertical--medium">
+                    <lightning-input type="text" name="serialNumber" placeholder={label.ATI_PolicySearchSNPlaceholder} maxlength="20" required></lightning-input>
+                    <lightning-input type="date" name="roDate" placeholder={label.ATI_PolicySearchRODPlaceholder} required></lightning-input>
+                    <lightning-input type="number" name="unitUsage" placeholder={label.ATI_PolicySearchUUPlaceholder} max="9900000" min="1" required ></lightning-input>
+                    <div> <br/><lightning-button class= " slds-align_absolute-center slds-m-vertical--medium" label="Search" onclick={searchPolicy}></lightning-button></div>
+                </div>
+              
+            </form>
+            </div>
+            <div if:true={showLoadingSpinner} class="cstm-spinner">
+                <lightning-spinner alternative-text="Loading..."></lightning-spinner>
+            </div>
+            <template if:true={showInvTable}>
+            <br/>
+            <h3 class="slds-text-heading_small slds-m-bottom_medium" >
+               <b> {label.ATI_PolicySearchMIHeader} </b>
+            </h3>
+            
+            
+            <div>
+                <lightning-datatable
+                        key-field="Id"
+                        data={invData}
+                        columns={invDataColumns}
+                        hide-checkbox-column>
+                </lightning-datatable>
+            </div> 
+        </template>
+            <template if:true={showCoverageTable}> 
+            <br/>
+            <br/>
+            <h3 class="slds-text-heading_small slds-m-bottom_medium">
+               <b> {label.ATI_PolicySearchWIHeader} </b>
+            </h3>
+            <div>
+                <lightning-datatable
+                        key-field="Id"
+                        data={cvrgData}
+                        columns={coverageColumns}
+                        hide-checkbox-column>
+                </lightning-datatable>
+            </div> 
+        </template>
+        <template if:true={showCmpTable}>      
+            <br/><br/>
+            <h3 class="slds-text-heading_small slds-m-bottom_medium">
+               <b> {label.ATI_PolicySearchCIHeader} </b>
+            </h3>
+            <div>
+                <lightning-datatable
+                        key-field="Id"
+                        data={cmpData}
+                        columns={campaignColumns}
+                        hide-checkbox-column>
+                </lightning-datatable>
+    </div>  
+    <br/>
+    <!--button class="slds-button slds-button_brand slds-align_absolute-center" onclick={navigateToLightningComponent}>   Create new claim </button-->
+</template>  
+    </lightning-card>
+</template>

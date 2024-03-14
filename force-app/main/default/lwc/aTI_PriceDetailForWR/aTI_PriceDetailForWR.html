@@ -1,0 +1,20 @@
+<template>
+    <div class="slds-card_boundary">
+        <lightning-card title="Price Details" icon-name="custom:custom63">
+            <template if:true={transactionHistLIs.data}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={transactionHistLIs.data}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+            <template if:true={transactionHistLIs.error}>
+                <!-- handle Apex error -->
+            </template>
+        </lightning-card>
+    </div>
+    
+</template>

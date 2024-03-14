@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Check_if_the_triggered_record_is_most_updated</name>
+        <label>Check if the triggered record is most updated</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Old Record</defaultConnectorLabel>
+        <rules>
+            <name>Latest_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_All_DocuSign_Status.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Incentive_Proposal_Records</targetReference>
+            </connector>
+            <label>Latest Record</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>Status_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.dfsle__Status__c},
+&apos;Sent&apos;,&apos;Approved - Waiting on Customer? Need to Talk&apos;,
+&apos;Delivered&apos;,&apos;Approved - Waiting on Customer? Need to Talk&apos;,
+&apos;Rejected&apos;,&apos;Rejected&apos;,
+&apos;Void&apos;,&apos;Revised - Inactive&apos;,
+&apos;Completed&apos;,&apos;Approved - Claim Ready&apos;,
+&apos;Draft&apos;)</expression>
+    </formulas>
+    <interviewLabel>Incentive Proposal - Update Incentive Proposal Status {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Incentive Proposal - Update Incentive Proposal Status</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_All_DocuSign_Status</name>
+        <label>Get All DocuSign Status</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_the_triggered_record_is_most_updated</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>dfsle__SourceId__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>dfsle__EnvelopeStatus__c</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Incentive_Proposal_Records</name>
+        <label>Get Incentive Proposal Records</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Incentive_Proposal_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RebateProgram</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Incentive_Proposal_Status</name>
+        <label>Update Incentive Proposal Status</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ATI_Processing_Status__c</field>
+            <value>
+                <elementReference>Status_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <object>RebateProgram</object>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_All_DocuSign_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>dfsle__Status__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>dfsle__EnvelopeStatus__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
