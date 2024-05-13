@@ -1,12 +1,13 @@
 <template>
-<div class="slds-var-m-around_medium">
-    <lightning-card title="First program of LWC" icon-name="utility:user">
-        <div class = "slds-var-m-around_medium">
-
-           Hello,{Variables}!
-
-
-</div>
-    </lightning-card>
+    <div class="slds-var-m-around_medium">
+        <lightning-card title="First program of LWC" icon-name="utility:user">
+            <div class = "slds-var-m-around_medium">
+               
+            Hello ,{greeting}!
+            </div>
+            <div class = "slds-var-m-around_medium">
+                <lightning-input label="Enter a name" value={Variables} onchange={handleChange}></lightning-input>
+             </div>
+        </lightning-card>
     </div>
 </template>

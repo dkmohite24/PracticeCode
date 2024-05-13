@@ -110,7 +110,7 @@ public  class lwcPaginationTaskController
     @AuraEnabled
     public static list<Account> getAccountData(String textkey) {
         textkey = '%' + textkey + '%';  
-        list<Account> accLst = [SELECT  Id, Name, Industry, Phone, Type From Account WHERE Name LIKE :textkey];
+        list<Account> accLst = [SELECT  Id, Name, Industry, Phone, Type From Account WHERE Name LIKE :textkey limit 10];
         
         if(accLst.isEmpty()) {
             throw new AuraHandledException('No Record Found..');
@@ -122,7 +122,7 @@ public  class lwcPaginationTaskController
     public static list<contact> getContactData(String accId) {
         accId =  accId ;
         system.debug('accId'+accId);
-        list<Contact> conLst = [SELECT  Id, LastName,Phone,Email ,Title From Contact WHERE AccountId=:accId];
+        list<Contact> conLst = [SELECT  Id, LastName,Phone,Email ,Title From Contact WHERE AccountId=:accId limit 10];
         system.debug('conLst'+conLst);
         if(conLst.isEmpty()) {
             throw new AuraHandledException('No Record Found..');

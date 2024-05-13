@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>AccountData</masterLabel>
+    <isExposed>true</isExposed>
+    <description>This is a channel which is used by LWC component to send data
+    </description>
+        <lightningMessageFields>
+            <description>This is First Name</description>
+            <fieldName>firstName</fieldName>
+        </lightningMessageFields>
+        <lightningMessageFields>
+            <description>This is Last Name</description>
+            <fieldName>lastName</fieldName>
+        </lightningMessageFields> 
+</LightningMessageChannel>

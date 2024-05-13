@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Data Transfer Using Message Channel for Unrelated LWC Component">
+        <div class = "slds-p-around_medium slds-box">
+            <lightning-input  type="text" 
+                               name = "fName" 
+                               label="Enter First Name"
+                               value = {firstName}
+                               onchange = {handlefirstName}>
+            </lightning-input><br/>
+            <lightning-input  type="text" 
+                               name = "lName" 
+                               label="Enter Last Name"
+                               value = {lastName}
+                               onchange = {handlelastName}>
+            </lightning-input> 
+            <br/>
+            <lightning-button variant="brand" label="send data" onclick={handleClick}>
+                
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

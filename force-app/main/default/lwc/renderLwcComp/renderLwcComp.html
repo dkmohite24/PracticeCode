@@ -1,0 +1,14 @@
+<template>
+
+    <lightning-card title="First program of LWC" icon-name="utility:user">
+        <lightning-input
+            type="checkbox"
+            label="Blue"
+            onchange={handleCheckboxChange}
+        >
+        <template lwc:if={ischeck}>
+            <div class="slds-m-vertical_medium">These are the details!</div>
+          </template>
+    </lightning-input>
+    </lightning-card>
+</template>
