@@ -1,5 +1,22 @@
 @RestResource(urlMapping='/v1/Account/*')
 global class restApiCall {
+    /*
+        WorkBench
+        /services/apexrest/v1/Account/0012w00000rGLB8AAO
+        PostMan URL
+        https://dkmohite24-dev-ed.my.salesforce.com/services/apexrest/v1/Account/0012w00000rGLB8AAO
+
+
+    */
+
+    @HttpPost
+    global static Account insertAcc(String accName,String accPhone,String accNumber){
+        
+        Account newAcc = new Account(name = accName,Phone =accPhone,AccountNumber=accNumber);
+        insert newAcc;
+        return newAcc;
+
+    }
     
      @HttpGet
     global static accwrapper accInfo(){
@@ -20,6 +37,8 @@ global class restApiCall {
         global list<contact> conRecList;
         global list<Case> caseRecList;
     }
+
+
     
     
 

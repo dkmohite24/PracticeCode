@@ -1,0 +1,46 @@
+<template>
+    <template if:true={backgroundImgURL}>
+        <img src={backgroundImgURL}/>
+    </template>
+    <lightning-card>
+    <form action="" autocomplete="off" data-lpignore="true">
+        <template  for:each={fieldsToBeDisplay} for:item="field">
+            
+            <div class="my_div" key={field.name}>
+                <div if:true={field.isFirstName} style="width: 150px;">
+                    <div style="text-align: start;padding: 0px 0px 0px 22px;font-size: 12px;font-family: Helvetica;"> <span  class="required">*</span>{field.label} </div>
+                    <div class=" slds-p-horizontal_medium slds-form-element__control " style="padding: 3px 0px 0px 0px;margin: 0px 0px 0px 22px;width: 130px;">
+                        <input autocomplete="off" data-lpignore="true" style="border: 1px solid rgb(148, 148, 148);padding: 0px 0px 0px 10px;height: 44.72px;margin: 0px;width: inherit;" type="text"  required class="slds-input" name={field.name} />
+                        <!-- <rect x="0.680176" y="0.763062" width="22.6392" height="22.4737" rx="4" fill="currentColor" display="none"></rect> -->
+                    </div>
+                </div>
+                <div if:true={field.isLastName} style="display: block; margin-top: -70px; padding-right: 18px; padding-left: 140px; width: 150px;">
+                    <div style="text-align: start;padding: 3px 0px 0px 27px; width: inherit;font-size: 12px;font-family: Helvetica;"> <span  class="required" style="float: none;">*</span>{field.label} </div>
+                    <div class=" slds-p-horizontal_medium slds-form-element__control" style="padding: 2.17px 0px 0px 25px;display: block; width: 130px;">
+                        <input style="border: 1px solid rgb(148, 148, 148);padding: 0px 0px 0px 10px;height: 44.72px;margin: 0px;width: inherit;" type="text"  required class="slds-input" name={field.name} />
+                    </div>
+                </div>
+
+                <div if:true={field.isEmail}>
+                    <div  style="text-align: start; padding-left: 7%; padding-top: 3%; font-size: 12px; font-family: Helvetica;"> <span  class="required">*</span>{field.label} </div>
+                    <div class=" slds-p-horizontal_medium slds-form-element__control" style="padding-left: 12px; padding-right: 12px; padding-top: 1%; width: 318px;">
+                        <input style="border: 1px solid #949494; padding-top: 0px; height: 44.72px; width: 272px;" type="text" title={errorMessage}  pattern="^[A-Za-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"  required class="slds-input" name={field.name} />
+                        
+                    </div>
+                </div>
+                
+                <div if:true={field.isExtra}>
+                    <div  style="text-align: start; padding-left: 7%; padding-top: 3%; font-size: 12px; font-family: Helvetica;"> <span  class="required">*</span>{field.label} </div>
+                    <div class=" slds-p-horizontal_medium slds-form-element__control" style="padding-left: 12px; padding-right: 12px; padding-top: 1%; width: 318px;">
+                        <input style="border: 1px solid #949494; padding-top: 0px; height: 44.72px; width: 272px;" type="text"  required class="slds-input" name={field.name} />
+                    </div>                    
+                </div>
+            </div>
+        </template>
+    </form>
+    <div style="font-size: 12px; padding-top:6%; margin: 0 0 0px 15px; width: 272px;">By starting a chat, you agree to our <a href="https://www.deltafaucet.com/privacy-policy" target="_blank" style="color: #c51638;">Privacy Policy</a> <p style="text-align: left;     margin: 0px 0 0 11px;"> and <a href="https://www.deltafaucet.com/terms-of-use" target="_blank" style="color: #c51638;"> Terms of Use.</a></p></div>
+    <div class="slds-col slds-size_12-of-12 slds-p-horizontal_medium slds-text-align--center" style="padding-top: 4%;">
+        <button class="slds-button slds-button_destructive" style="width:272px; height: 44px; background: #c51638; " onclick={handleStartChat}>Start Chatting</button>
+    </div><br/><br/>
+</lightning-card>
+</template>
