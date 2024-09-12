@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 export default class UsingLoopLwc extends LightningElement {
     Students= [
@@ -75,4 +75,47 @@ export default class UsingLoopLwc extends LightningElement {
 
 
     ]
+   
+    @track isDropdownOpen= false ;
+    
+
+
+    toggleDropdown() {
+        this.isDropdownOpen = !this.isDropdownOpen;
+    }
+
+    navigateWorkout() {
+        // Logic to navigate to the Workout page
+    }
+
+    navigateHomeWorkout() {
+        // Logic to navigate to the Home Workout page
+    }
+
+    navigateStretching() {
+        // Logic to navigate to the Stretching page
+    }
+
+
+
+
+
+
+
+
+// header
+@track isWorkoutDropdownOpen = false; // Tracks dropdown open/close state
+@track selectedWorkout = 'Workout';   // Default header text
+
+// Toggles the dropdown visibility
+toggleWorkoutDropdown() {
+    this.isWorkoutDropdownOpen = !this.isWorkoutDropdownOpen;
+}
+
+// Handles selection of a menu item
+handleMenuSelect(event) {
+    const selectedValue = event.currentTarget.dataset.value;
+    this.selectedWorkout = selectedValue;
+    this.isWorkoutDropdownOpen = false;
+}
 }

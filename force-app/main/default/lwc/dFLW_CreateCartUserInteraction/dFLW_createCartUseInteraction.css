@@ -1,0 +1,29 @@
+.slds-table_edit_container {
+    overflow: auto;
+    width: 800px; /* Set a fixed width for the container */
+}
+
+.slds-table {
+    table-layout: fixed; /* Ensures the table has a fixed layout */
+    width: 100%; /* Set the width to occupy the full container */
+}
+
+.slds-table th, .slds-table td {
+    padding: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ensures text is truncated if it overflows */
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+}
+
+.slds-table td lightning-input, 
+.slds-table td lightning-combobox {
+    width: 100%;
+}
+
+.slds-truncate {
+    width: 100%; /* Make sure the div also does not exceed the table cell */
+    overflow: hidden; /* Hide any overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+    white-space: nowrap; /* Prevents text wrapping */
+}
+

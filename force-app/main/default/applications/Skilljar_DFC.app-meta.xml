@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Skilljar_Admin</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>Skilljar</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Lightning-enabled DFC Skilljar application with Contact matching on Home page for Skilljar Admins</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>DFC Skilljar</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>skilljar__Student__c</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>skilljar__Signup_Field__c</tabs>
+    <tabs>skilljar__Domain_Membership__c</tabs>
+    <tabs>skilljar__Group_Membership__c</tabs>
+    <tabs>skilljar__Course_Progress__c</tabs>
+    <tabs>skilljar__Published_Course__c</tabs>
+    <tabs>skilljar__Course__c</tabs>
+    <tabs>skilljar__Lesson_Progress__c</tabs>
+    <tabs>skilljar__Lesson__c</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>DFC_Skilljar_UtilityBar</utilityBar>
+</CustomApplication>

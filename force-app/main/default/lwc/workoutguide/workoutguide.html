@@ -1,0 +1,66 @@
+<template>
+    <header class="header">
+        <div class="logo">
+            <a href="#" onclick={navigateHome}>Be fit</a>
+        </div>      
+        
+        
+        
+
+
+
+
+
+
+
+
+
+        <nav class="nav-list">
+            <ul >
+                <li><a href="#" onclick={navigateHome}>Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Workout</a>
+                    <div class="dropdown-content">
+                        <a href="#" data-id="strength" onclick={navigateWorkout}>Strength Training</a>
+                        <a href="#" data-id="cardio" onclick={navigateWorkout}>Cardio</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Home Workout</a>
+                    <div class="dropdown-content">
+                        <a href="#" data-id="bodyweight" onclick={navigateHomeWorkout}>Bodyweight Exercises</a>
+                        <a href="#" data-id="resistance" onclick={navigateHomeWorkout}>Yoga</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Stretching</a>
+                    <div class="dropdown-content">
+                        <a href="#" data-id="dynamic" onclick={navigateStretching}>Dynamic Stretching</a>
+                        <a href="#" data-id="static" onclick={navigateStretching}>Static Stretching</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick={navigateBmiCalculator}>BMI Calculator</a></li><div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                 </div>
+            </ul>
+        </nav>
+    </header>
+
+
+    
+
+
+    
+        
+            <div class="logo">
+                <a href="#" onclick={navigateHome}>Gym App</a>
+            
+            
+        
+        </div>
+        
+           
+        
+    
+</template>

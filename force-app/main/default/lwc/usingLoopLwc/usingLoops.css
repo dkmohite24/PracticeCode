@@ -1,0 +1,109 @@
+.slds-dropdown-trigger {
+    position: relative;
+}
+
+.slds-dropdown-trigger_click .slds-dropdown {
+    display: none;
+}
+
+.slds-dropdown-trigger_click.slds-is-open .slds-dropdown {
+    display: block;
+}
+.slds-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+}
+
+.slds-dropdown__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.slds-dropdown__item {
+    padding: 0.5rem;
+}
+
+.slds-dropdown__item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.slds-dropdown__item a:hover {
+    background-color: #f4f6f9;
+}
+.no-border-button button.slds-button {
+    border: none;
+    box-shadow: none;
+}
+
+
+
+
+
+
+
+
+.header {
+    background-color: #4CAF50; /* You can customize the background color */
+    padding: 10px;
+    text-align: center;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.slds-dropdown-trigger_click {
+    background-color: transparent;
+    border: none;
+}
+
+.slds-dropdown__list {
+    min-width: 100px; /* Adjust the width of the dropdown */
+}
+
+
+
+
+
+/*image css*/
+
+body {
+    margin: 0;
+    background-color: black; /* Set the background to black */
+    overflow: hidden; /* Prevent scrollbars if the image is larger than the screen */
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    width: 100vw;  /* Full viewport width */
+    overflow: hidden; /* Ensure the image doesn't overflow the container */
+}
+
+.animated-image {
+    max-width: 100%;  /* Scale the image to fit within the container width */
+    max-height: 100%; /* Scale the image to fit within the container height */
+    object-fit: cover;
+    animation: slideInRightToLeft 2s ease-in-out forwards; /* Apply the animation */
+}
+
+@keyframes slideInRightToLeft {
+    from {
+        transform: translateX(100%); /* Start off-screen to the right */
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        transform: translateX(0); /* End at the center of the screen */
+        opacity: 1; /* End fully visible */
+    }
+}

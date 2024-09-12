@@ -1,0 +1,76 @@
+<template>
+    <lightning-button label="Change Data Tables" class="slds-text-align_right" onclick={handleButtonClick}></lightning-button>
+    <template if:true={showTables}>
+        <template if:true={SelectedProductrecords2.length}>
+<lightning-datatable data={SelectedProductrecords2} columns={fieldColumns} key-field="Id" onrowaction={callRowAction} hide-checkbox-column="true" ></lightning-datatable>
+</template>
+</template> 
+<template if:false={showTables}>
+    <template if:true={SelectedProductrecords2.length}>
+<lightning-card title=" ">
+<div class="slds-table_edit_container">
+            <table class="slds-table slds-table_bordered slds-table_edit">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Product Code">Action</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Product Code">Product</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Product Description">Description</div>
+                        </th>
+                        
+                        <th scope="col">
+                            <div class="slds-truncate" title="Quantity">Quantity</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Unit Price">Unit Price</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Promo Code">Promo Code</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={temp} for:item="product">
+                        <tr key={product.id}>
+                            <td>
+                                <lightning-button-icon
+                                  icon-name="utility:delete"
+                                  alternative-text="delete"
+                                  title="Delete"
+                                  variant="container"
+                                  onclick={deleteHandle}
+                                  
+                                  icon-class="slds-icon-text-error"
+                                  key={product.id}
+                                  data-id={product.id}
+                                ></lightning-button-icon>
+                              </td>
+                            <td>
+                                <div class="slds-truncate" title={product.name}>{product.Name} </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title={product.description}>{product.id}</div>
+                            </td>
+                            <td>
+                                <lightning-input type="number" value={Quantity} onchange={handleQuantityChange}>1</lightning-input>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title={product.unitPrice}>0</div>
+                            </td>
+                            <td>
+                                <lightning-combobox value={product.promoCode} placeholder="None" options={promoOptions} onchange={handlePromoChange}></lightning-combobox>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </lightning-card>
+</template>
+</template>
+
+</template>

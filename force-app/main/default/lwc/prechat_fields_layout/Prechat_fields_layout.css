@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+/* lightning-button {  
+    padding-top: 1em;
+    padding-left: 0%;
+    padding-right: 0%;
+    width: 80%;
+} */
+lightning-button.slds-m-left_x-small {
+    width: 80%;
+}
+.required:after {
+  content:" *";
+  color: red;
+}
+/* .my_span1
+{
+    display: block;
+    margin-top: -55px;
+    padding-right: 18px;
+    padding-left: 140px;
+}
+.my_span {
+  display: block;
+  padding-left: 10%;
+   padding-right: 10px;
+  background: rgb(11, 235, 243);
+  border: 5px solid rgb(47, 0, 255);
+} */
+/* .slds-form-element__control.input {
+    border: 2px solid #949494;
+  }
+.slds-form-element__control.input:focus { 
+    border:1px solid green;
+    box-shadow: 0 0 10px yellow;
+ } */
+  /* .labeldiv
+  {
+    text-align: start;
+    padding-left: 10%;
+  } */

@@ -1,6 +1,82 @@
 <template>
+    <div class="header">
+        <ul class="menu">
+            <li>
+                <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <button class="slds-button slds-dropdown-trigger_click" aria-haspopup="true" title="Workout Menu" onclick={toggleWorkoutDropdown}>
+                        <div style="color: white; font-size: 1.5em;">
+                            {selectedWorkout}
+                        </div>
+                    </button>
+                    <div class="slds-dropdown slds-dropdown_left slds-dropdown_actions" if:true={isWorkoutDropdownOpen}>
+                        <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                            <li class="slds-dropdown__item" role="presentation">
+                                <a href="#" role="menuitem" tabindex="0" data-value="Workout" onclick={handleMenuSelect}>
+                                    <span class="slds-truncate" title="Workout">Workout</span>
+                                </a>
+                            </li>
+                            <li class="slds-dropdown__item" role="presentation">
+                                <a href="#" role="menuitem" tabindex="0" data-value="Home Workout" onclick={handleMenuSelect}>
+                                    <span class="slds-truncate" title="Home Workout">Home Workout</span>
+                                </a>
+                            </li>
+                            <li class="slds-dropdown__item" role="presentation">
+                                <a href="#" role="menuitem" tabindex="0" data-value="Stretching" onclick={handleMenuSelect}>
+                                    <span class="slds-truncate" title="Stretching">Stretching</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <!-- You can add more dropdowns or menu items here -->
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+ <!-- Image component -->
+ 
+ <div class="image-container">
+    <img src="https://images4.alphacoders.com/112/1128335.jpg" class="centered-image"  alt="Gym Background" />
+</div>
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <lightning-card title="Using for loop in LWC " >
         <div style="padding: 10px;">
+            
              <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" border="5">
                  <thead >
                     <tr class="slds-line-hight_reset">
@@ -27,5 +103,54 @@
              </table>
         </div>
     </lightning-card>
+    
+
+    <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+        <button class="slds-button slds-dropdown-trigger_click " aria-haspopup="true" title="Workout Menu" onclick={toggleDropdown}>
+            Workout
+            <svg class="slds-button__icon slds-button__icon_right" aria-hidden="true"> 
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+            </svg>
+        </button>
+        <div class="slds-dropdown slds-dropdown_left slds-dropdown_actions" if:true={isDropdownOpen}>
+            <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                <li class="slds-dropdown__item" role="presentation">
+                    <a href="#" role="menuitem" tabindex="0" onclick={navigateWorkout}>
+                        <span class="slds-truncate" title="Workout">Workout</span>
+                    </a>
+                </li>
+                <li class="slds-dropdown__item" role="presentation">
+                    <a href="#" role="menuitem" tabindex="0" onclick={navigateHomeWorkout}>
+                        <span class="slds-truncate" title="Home Workout">Home Workout</span>
+                    </a>
+                </li>
+                <li class="slds-dropdown__item" role="presentation">
+                    <a href="#" role="menuitem" tabindex="0" onclick={navigateStretching}>
+                        <span class="slds-truncate" title="Stretching">Stretching</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+
+
+
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Button menu with only <code>lightning-menu-item</code> elements.
+        </h2>
+
+        <!-- Simple -->
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-button-menu label="Menu" class="no-border-button" alternative-text="Show menu" variant="borderless"> 
+                <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
+                <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
+                <lightning-menu-item value="MenuItemThree" label="Menu Item Three"></lightning-menu-item>
+                <lightning-menu-item value="MenuItemFour" label="Menu Item Four"></lightning-menu-item>
+            </lightning-button-menu>
+        </div>
+    </div>
     
 </template>
